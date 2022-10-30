@@ -1,0 +1,48 @@
+.map--first__container {
+  display: block;
+  width: 100vw;
+  height: 50vh;
+  margin-bottom: 20px;
+}
+.map--second__container {
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin-top: 40px;
+  margin-bottom: 100px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.first--map__container {
+  width: 30%;
+  margin-right: 20px;
+  border: 1px solid rgb(224, 224, 224);
+  background-color: white;
+  padding: 20px;
+}
+.second--map__container {
+  width: 70%;
+  background-color: white;
+  border: 1px solid rgb(224, 224, 224);
+  .form--map__container {
+    padding: 20px;
+    label {
+      margin-bottom: 10px;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+    input,
+    textarea {
+      border: 1px solid rgb(224, 224, 224);
+      width: 100%;
+    }
+    input {
+      height: 4vh;
+    }
+    textarea {
+      height: 10vh;
+    }
+  }
+}

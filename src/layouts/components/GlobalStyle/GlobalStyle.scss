@@ -1,0 +1,31 @@
+:root{
+    --font-family: 'Roboto', sans-serif;
+}
+
+html{
+    font-size: 62.5%;
+    width: 100%;
+}
+
+body {
+    font-size: 1.6rem !important;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    font-family: var(--font-family);
+}
+
+input,
+button,
+[tabindex] {
+    border: none;
+    outline: none;
+}
+
+a {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+ul{
+    list-style: none;
+}
