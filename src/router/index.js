@@ -5,7 +5,10 @@ import LogIn from "@/pages/SignIn/signin.vue";
 import SearchBook from "@/pages/Search/search.vue";
 import Contact from "@/pages/Contact/contact.vue";
 import InforUser from "@/pages/InforUser/inforuser.vue";
+import adminRoutes from "@/router/adminroutes.js";
+
 const routes = [
+    ...adminRoutes,
     {
     // Trang chủ
         path: '/',
@@ -41,8 +44,9 @@ const routes = [
         component: InforUser 
     }
     
+    
 ];
-
+console.log(routes);
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: routes,

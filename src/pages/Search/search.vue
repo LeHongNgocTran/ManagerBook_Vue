@@ -69,3 +69,44 @@
     import {faCirclePlus,faSearch} from "@fortawesome/free-solid-svg-icons";
     library.add(faCirclePlus,faSearch)
 </script>
+
+<!-- <style scoped>
+.second--search__container {
+    width: 70%;
+    background-color: white;
+}
+
+.search__container {
+    padding: 20px;
+}
+
+ul {
+    margin-left: -20px;
+}
+
+.second--search__bar {
+    display: flex;
+    flex-direction: row;
+    padding: 1.5rem;
+    background-color: rgb(228, 228, 228);
+    font-size: 1.4rem;
+}
+
+input {
+        width: 60%;
+        height: 4rem;
+        font-size: 1.5rem;
+        border: none;
+    }
+    .search__button {
+    margin-left: 1.2rem;
+
+   
+}
+
+.search__bar--options {
+    border: none;
+    margin-right: 1.5rem;
+    background-color: white;
+}
+</style> -->
