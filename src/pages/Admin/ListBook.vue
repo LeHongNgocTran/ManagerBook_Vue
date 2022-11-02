@@ -27,13 +27,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr class="text-center align-middle">
-                        <td>1</td>
+                    <tr v-for="(book, index) in this.books" :key="book._id" class="text-center align-middle">
+                        <td>{{index+1}}</td>
                         <td>
-                            <img class="w-50" src="{{book.imageUrl}}" alt="Book1" />
+                            <img class="w-50" :src="book.imageUrl" alt="Book1" />
                         </td>
                         <td>{{ book.tensach }}</td>
-                        <td>{{book.}}</td>
+                        <!-- <td>{{book.}}</td> -->
                         <td>{{ book.maloai }}</td>
                         <td>
                             <button class='btn btn-danger w-100'>{{ book.trangthai }}</button>
@@ -45,7 +45,7 @@
                         <td>
                             <font-awesome-icon class='button-function' :onClick={} icon='fa-solid fa-circle-info' />
                         </td>
-                    </tr> -->
+                    </tr>
                     <tr class="text-center align-middle">
                         <td>1</td>
                         <td>
@@ -97,7 +97,7 @@ import BookService from "@/services/book.service";
 export default {
     data() {
         return {
-            book: []
+            books: []
         }
     },
     methods: {
@@ -106,15 +106,15 @@ export default {
         },
         async getAllBook(){
             try{
-            this.book = await BookService.getAll();
-            console.log(this.book);
+            this.books = await BookService.getAll();
+            console.log(this.books);
             }catch(error){
                 console.log(error);
             }
         }
     },
     mounted(){
-        this.getAllBook()
+        this.getAllBook();
     }
 }
 </script>
