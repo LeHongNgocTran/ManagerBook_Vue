@@ -136,14 +136,15 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
 </script>
 
 <style lang="scss" scoped>
-.admin--layouts__wrapper {
-    height: 100vh;
-}
+// .admin--layouts__wrapper {
+//     height: 100vh;
+// }
 
 .first--admin__container {
-    background-color: rgb(26, 26, 61);
+    position: fixed;
     height: 100vh;
     width: 20%;
+    background-color: rgb(26, 26, 61);
     .image--admin__content {
         img {
             display: block;
@@ -181,10 +182,17 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
 }
 
 .second--admin__container {
+    position: relative;
+    left: 20%;
     width: 80%;
     .side-bar {
+        background-color: white;
+        width: 80%;
+        height: 80px;
+        position: fixed;
         display: flex;
         flex-direction: row;
+        z-index: 1000;
     }
 
     .search-bar {
@@ -239,9 +247,11 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
     }
 
     .container-children {
+        position: relative;
+        top: 80px;
         background-color: white;
         padding: 20px;
-        
+        z-index:100;
     }
 
 }

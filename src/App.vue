@@ -1,7 +1,7 @@
 <script>
-    import Navbar from "@/layouts/navbar/Navbar.vue";
-    import Footer from "@/layouts/footer/footer.vue";
-    import Admin from "@/layouts/AdminScreen/adminscreen.vue";
+    import Navbar from "@/layouts/LayoutUser/NavBar/Navbar.vue";
+    import Footer from "@/layouts/LayoutUser/Footer/footer.vue";
+    import Admin from  "@/layouts/LayoutAdmin/AdminScreen.vue";
     export default {
         data(){
             return {

@@ -1,4 +1,21 @@
+
 <script>
+import InforBook from "@/layouts/LayoutUser/InforBook/inforbook.vue";
+import BookService from "@/services/book.service";
+
+import './search.scss';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {faCirclePlus,faSearch} from "@fortawesome/free-solid-svg-icons";
+library.add(faCirclePlus,faSearch)
+
+export default {
+    components: {
+        InforBook
+    },
+   
+}
 </script>
 
 <template>
@@ -56,57 +73,3 @@
 </div>
 </template>
 
-<script>
-    import InforBook from "@/layouts/components/InforBook/inforbook.vue";
-    export default {
-        components: {
-            InforBook
-        }
-    }
-    import './search.scss';
-    import { library } from '@fortawesome/fontawesome-svg-core'
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-    import {faCirclePlus,faSearch} from "@fortawesome/free-solid-svg-icons";
-    library.add(faCirclePlus,faSearch)
-</script>
-
-<!-- <style scoped>
-.second--search__container {
-    width: 70%;
-    background-color: white;
-}
-
-.search__container {
-    padding: 20px;
-}
-
-ul {
-    margin-left: -20px;
-}
-
-.second--search__bar {
-    display: flex;
-    flex-direction: row;
-    padding: 1.5rem;
-    background-color: rgb(228, 228, 228);
-    font-size: 1.4rem;
-}
-
-input {
-        width: 60%;
-        height: 4rem;
-        font-size: 1.5rem;
-        border: none;
-    }
-    .search__button {
-    margin-left: 1.2rem;
-
-   
-}
-
-.search__bar--options {
-    border: none;
-    margin-right: 1.5rem;
-    background-color: white;
-}
-</style> -->

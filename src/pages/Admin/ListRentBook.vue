@@ -6,7 +6,7 @@
                 <button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <font-awesome-icon icon="fa-solid fa-filter" /> Lọc danh sách
-            
+
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><button class="dropdown-item fs-4" type="button">Chưa trả</button></li>
@@ -28,7 +28,6 @@
                 <thead>
                     <tr class="text-center">
                         <th>STT</th>
-                        <th>Hình ảnh</th>
                         <th>MSSV</th>
                         <th>Tên sinh viên</th>
                         <th>Mã phiếu mượn</th>
@@ -38,35 +37,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-center align-middle">
-                        <td>1</td>
+                    <tr v-for="(phieumuon, index) in this.phieumuon" :key="phieumuon._id"
+                        class="text-center align-middle">
+                        <td>{{index+1}}</td>
+                        <td>{{ phieumuon.masinhvien }}</td>
+                        <td>{{phieumuon.thongtinsinhvien[0].hoten}}</td>
+                        <td>{{"PM"+ phieumuon._id}}</td>
                         <td>
-                            <img class="w-50" src="../../assets/images/logoctu.png" alt="Book1" />
-                        </td>
-                        <td>B1910317</td>
-                        <td>Lê Hồng Ngọc Trân</td>
-                        <td>TL001</td>
-                        <td>
-                            <button class='btn btn-danger w-50'>Chưa trả</button>
-                        </td>
-                        <td>
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square" />
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-trash" />
-                        </td>
-                        <td>
-                            <font-awesome-icon class='button-function' :onClick={} icon='fa-solid fa-circle-info' />
-                        </td>
-                    </tr>
-                    <tr class="text-center align-middle">
-                        <td>1</td>
-                        <td>
-                            <img class="w-50" src="../../assets/images/logoctu.png" alt="Book2" />
-                        </td>
-                        <td>B1910317</td>
-                        <td>Lê Hồng Ngọc Trân</td>
-                        <td>TL002</td>
-                        <td>
-                            <button class='btn btn-success w-50'>Đã trả</button>
+                            <button class='btn btn-danger w-50' v-if="phieumuon.trangthai == false">Chưa trả</button>
+                            <button class='btn btn-success w-50' v-else>Đã trả</button>
                         </td>
                         <td>
                             <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square" />
@@ -108,23 +87,43 @@
 
 
 <script>
-    import {
-    library
-} from '@fortawesome/fontawesome-svg-core'
-import {
-    FontAwesomeIcon
-} from '@fortawesome/vue-fontawesome';
-import {
- faFilter
-} from "@fortawesome/free-solid-svg-icons";
-library.add( faFilter)
-
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+library.add(faFilter); 
+import PhieuMuonService from "@/services/phieumuon.service";
 export default {
-    methods : {
+    data() {
+        return {
+            phieumuon: [],
+        };
+    },
+    methods: {
         // Chuyển sang trang thêm phiếu mượn
-        changeToInforLend : function(){
-            this.$router.push({name: 'inforlendbook'});
+        changeToInforLend: function () {
+            this.$router.push({ name: 'inforlendbook' });
+        },
+        
+        async getAllPhieuMuon() {
+            try {
+                this.phieumuon = await PhieuMuonService.getAllPhieuMuon();
+                // console.log(this.phieumuon);
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
+    },
+    mounted() {
+        this.getAllPhieuMuon();
     }
 }
+
+
+
+ 
+
+
+
+
 </script>

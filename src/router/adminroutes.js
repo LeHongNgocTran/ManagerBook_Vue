@@ -1,11 +1,14 @@
 // Quản lý đường dẫn của Admin
-import Admin from "@/layouts/AdminScreen/adminscreen.vue";
+import Admin from "@/layouts/LayoutAdmin/AdminScreen.vue";
 import Dashboard from '../pages/Admin/Dashboard.vue';
+
 import ListBook from "../pages/Admin/ListBook.vue";
+import AddBook from "../pages/Admin/AddBook.vue";
+import EditBook from "../pages/Admin/EditBook.vue";
+
 import ListRentBook from "../pages/Admin/ListRentBook.vue";
 import ListRenewalBook from "../pages/Admin/BookRenewal.vue";
 import ListMissBook from "../pages/Admin/ListMissBook.vue";
-import AddBook from "../pages/Admin/AddBook.vue";
 import InforLendBook from "../pages/Admin/InforLendBook.vue";
 
 export default [
@@ -32,6 +35,12 @@ export default [
                 path: 'addbook',
                 name: 'addbook',
                 component: AddBook
+            },
+            {
+                path: 'editbook/:id',
+                name: 'editbook',
+                component: EditBook,
+                params: true
             },
             {
                 // Trang danh sách sinh viên mượn sách

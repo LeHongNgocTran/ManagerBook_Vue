@@ -13,13 +13,13 @@
             </button>
         </div>
         <div class="shadow mt-2">
-            <table class='table table-striped'>
+            <table class='table table-striped table-hover'>
                 <thead>
                     <tr class="text-center">
                         <th>STT</th>
                         <th>Hình ảnh</th>
                         <th>Tên sách</th>
-                        <!-- <th>Tác giả</th> -->
+                        <th>Tác giả</th>
                         <th>Thể loại</th>
                         <th>Trạng thái</th>
                         <th>Tác vụ</th>
@@ -27,44 +27,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(book, index) in this.books" :key="book._id" class="text-center align-middle">
-                        <td>{{index+1}}</td>
-                        <td>
-                            <img class="w-50" :src="book.imageUrl" alt="Book1" />
+                    <tr v-for="(book, index) of this.books"
+                        :key="book._id" 
+                        class="text-center align-middle">
+                        <td>{{ index + 1 }}</td>
+                        <td class='w-25'>
+                            <img class="w-25" :src="book.imageUrl" alt="Book1" />
                         </td>
-                        <td>{{ book.tensach }}</td>
-                        <!-- <td>{{book.}}</td> -->
+                        <td class='w-25'>{{ book.tensach }}</td>
+                        <td>{{ book.tentacgia }}</td>
                         <td>{{ book.maloai }}</td>
                         <td>
-                            <button class='btn btn-danger w-100'>{{ book.trangthai }}</button>
+                            <button class='btn btn-danger w-100' v-if="book.trangthai == false">Đã mượn</button>
+                            <button class='btn btn-success w-100 ' v-else>Chưa mượn</button>
                         </td>
                         <td>
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square" />
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-trash" />
-                        </td>
-                        <td>
-                            <font-awesome-icon class='button-function' :onClick={} icon='fa-solid fa-circle-info' />
-                        </td>
-                    </tr>
-                    <tr class="text-center align-middle">
-                        <td>1</td>
-                        <td>
-                            <img class="w-50" src="../../assets/images/logoctu.png" alt="Book2" />
-                        </td>
-                        <td>Cây cam ngọt của tôi</td>
-                        <td>José Mauro de Vasconcelos</td>
-                        <td>Văn học phương Tây</td>
-                        <td>
-                            <button class='btn btn-success w-100'>Đã mượn</button>
-                        </td>
-                        <td>
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square" />
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-trash" />
+                            <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square"
+                                @click="changetoeditbook(book._id, book)" />
+                            <font-awesome-icon class='button-function' icon="fa-solid fa-trash"
+                                @click="deletebook(book._id)" />
                         </td>
                         <td>
                             <font-awesome-icon class='button-function' :onClick={} icon='fa-solid fa-circle-info' />
                         </td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
@@ -72,49 +59,63 @@
 </template>
 
 <script>
-import {
-    library
-} from '@fortawesome/fontawesome-svg-core'
-import {
-    FontAwesomeIcon
-} from '@fortawesome/vue-fontawesome';
-import {
-    faTrash,
-    faPenToSquare,
-    faPlus,
-    faFileExcel,
-    faFilePdf,
-    faCircleInfo
-} from "@fortawesome/free-solid-svg-icons";
-library.add(
-    faTrash,
-    faPenToSquare,
-    faPlus,
-    faFileExcel,
-    faCircleInfo,
-    faFilePdf)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faTrash, faPenToSquare, faPlus, faFileExcel, faFilePdf, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+library.add(faTrash, faPenToSquare, faPlus, faFileExcel, faCircleInfo, faFilePdf)
 import BookService from "@/services/book.service";
 export default {
     data() {
         return {
-            books: []
+            books: [],
+            activeIndex: 0
         }
     },
+    
     methods: {
+
+        async getAllBook() {
+            try {
+                this.books = await BookService.getAll();
+              
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
         changetoaddbook() {
             this.$router.push({ name: 'addbook' });
         },
-        async getAllBook(){
-            try{
-            this.books = await BookService.getAll();
-            console.log(this.books);
-            }catch(error){
+
+        changetoeditbook(id, data) {
+            // console.log(data);
+            this.$router.push({
+                name: 'editbook',
+                params: { id: id }
+            });
+        },
+        reFreshList(){
+            console.log('abc');
+            this.getAllBook();
+        },
+        async deletebook(id) {
+            let text = "Bạn muốn xóa sách. Vui lòng xác nhận trước khi xóa ?";
+            if (confirm(text) == true) {
+               try{
+                   await BookService.deleteId(id)
+                   console.log(id);
+
+                   this.reFreshList();
+            } catch(error){
                 console.log(error);
             }
         }
+        },
+
+
     },
-    mounted(){
-        this.getAllBook();
+    mounted() {
+        this.reFreshList()
     }
 }
 </script>

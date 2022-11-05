@@ -61,6 +61,8 @@ import {
 library.add(faUser,
     faBook,
     faCalendar)
+
+    
 </script>
 
 <style lang="scss">
