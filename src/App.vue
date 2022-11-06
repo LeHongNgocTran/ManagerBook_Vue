@@ -5,8 +5,7 @@
     export default {
         data(){
             return {
-                permission : 2
-            
+                permission : 0
             }
         },
         components: {

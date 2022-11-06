@@ -33,7 +33,7 @@
       
       // border: 1px solid; */
         width: 20rem;
-        background: url('../../assets/images/logoctu.png') center no-repeat ;
+        background: url('../../../assets/images/logoctu.png') center no-repeat ;
         background-size: contain;
 }
 .footer-infor h5{

@@ -107,9 +107,87 @@ import {
     faFile
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faRocket, faSearch, faTags, faFolderOpen, faFile)
-import "./homepage.scss";
+
 </script>
 
-<style scoped>
-   
+<style lang="scss" scoped>
+   .first--home__container {
+    background: url('../../assets/images/images.jpeg') no-repeat center;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    font-size: bold;
+    justify-content: center;
+}
+
+.search-container {
+    align-self: center;
+    width: 50%;
+    height: 60%;
+    .list-find {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 50px;
+        margin-left: -20px;
+        li {
+            padding: 10px;
+            font-size: 2rem;
+            border-right: 1px solid;
+            font-weight: bold;
+            a{
+                color: white !important;
+            }
+            a:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .search-bar {
+        display: flex;
+        padding: 20px;
+        background-color: rgb(122, 122, 122);
+        input {
+            height: 50px;
+            font-size: 2rem;
+            width: 85%;
+            padding-left: 10px;
+        }
+        .search-button{
+            font-size: 1.5rem;
+            width: 20%;
+            padding: 0px 30px;
+        }
+    }
+
+    
+}
+.second--home__container {
+    margin: 100px 0px;
+    .container--list__row {
+        margin-top: 100px;
+    }
+    hr{
+        display: inline-block;
+        width: 40%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+  
+       
+    }
+    ul {
+        list-style-type: square;
+        
+        li, h3 {
+            margin-bottom: 10px;
+        }
+
+        li{
+            margin-left: 20px;
+        }
+    }
+}
 </style>
