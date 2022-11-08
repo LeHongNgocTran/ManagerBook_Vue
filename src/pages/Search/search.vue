@@ -5,13 +5,36 @@ import InforBook from "@/layouts/LayoutUser/InforBook/inforbook.vue";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faCirclePlus, faSearch } from "@fortawesome/free-solid-svg-icons";
+import InputSearch from "./InputSearch.vue";
 library.add(faCirclePlus, faSearch)
 
 export default {
-    components: {
-        InforBook
+    data() {
+        return {
+            modelValue: "",
+            searchText: "",
+            activeIndex: -1
+        }
     },
-    
+    watch : {
+        searchText() {
+            this.activeIndex = -1;
+        },
+    },
+    components: {
+        InforBook,
+        InputSearch
+    },
+    emits: ["submits","update:modelValue"],
+    methods: {
+        updateModelValue(e) {
+            this.$emit("update:modelValue", e.target.value);
+        },
+        submit() {
+            this.$emit("submit");
+        }
+    }
+
 
 }
 </script>
@@ -51,19 +74,7 @@ export default {
                     <li class='fw-bold pe-4'>Cơ bản</li>
                 </ul>
                 <div class='second--search__bar'>
-                    <select name="options--search" id="searchs" class='search__bar--options'>
-                        <option value="Từ khóa bất kỳ" require>Từ khóa bất kỳ</option>
-                        <option value="Nhan đề">Nhan đề</option>
-                        <option value="Tác giả">Tác giả</option>
-                        <option value="Nhà xuất bản">Nhà xuất bản</option>
-                    </select>
-                    <input type="search" placeholder="Nhập sách bạn muốn tìm" />
-                    <div class='search__button'>
-                        <button>
-                            <font-awesome-icon icon='fa-solid fa-search' />
-                            &nbsp; Tìm kiếm
-                        </button>
-                    </div>
+                   <InputSearch v-model="searchText"/>
                 </div>
                 <InforBook></InforBook>
             </div>

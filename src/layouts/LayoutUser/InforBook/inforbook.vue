@@ -4,7 +4,9 @@
             <p class='p-3 fs-4'>TỔNG QUAN</p>
         </div>
         <!-- chưa hiển thị details -->
-        <div id='infor__books' class='inforbook border p-3 my-4' v-for="book of this.books" :key="books._id">
+        <div id='infor__books' 
+            class='inforbook border p-3 my-4' 
+            v-for="book of this.displayBooks" :key="books._id">
             <div class='inforbook-content' v-if="book.isActive == null">
                 <p>
                     <strong>Tên sách: </strong>
@@ -108,7 +110,10 @@
             <b-pagination 
                 v-model="currentPage" 
                 :total-rows="rows" 
-                size="sm"></b-pagination>
+                :per-page="perPage"
+                size="lg"
+                @click = 'pagination(currentPage)'
+            ></b-pagination>
         </div>
     </div>
 </template>
@@ -124,33 +129,37 @@ import BookService from "@/services/book.service";
 export default {
     data() {
         return {
-            perpage : 3,
-            currentPage: 1,
+            perPage : 3,
+            currentPage: 3,
+            rows: 1,
             isActive: true,
-            books: []
+            books: [],
+            displayBooks:[]
         }
     },
-    compatConfig:{MODE: 3},
     methods: {
         async getAllBook() {
             try {
                 this.books = await BookService.getAll();
-
+                this.displayBooks = this.books.slice(0,3);
+                this.rows = this.books.length   ;
             } catch (error) {
                 console.log(error);
             }
         },
+
         toggleDetailsBook() {
             if (this.isActive == true) {
                 this.isActive = false;
             } else {
                 this.isActive = true;
             }
-        }
-    },
-    computed: {
-        rows(){
-            return this.books.length;
+        },
+
+        pagination(currentPage){
+            // alert(currentPage);
+            const start = (currentPage - 1) * this.perPage;
+            this.displayBooks = this.books.slice(start, start+3);
         }
     },
     mounted() {
