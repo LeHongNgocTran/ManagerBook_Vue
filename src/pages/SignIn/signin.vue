@@ -1,48 +1,116 @@
-<template>
-    <div class='signin-wrapper'>
-        <div class='text-center pt-4 signin--content'>
-            <h4 class='fs-2 mb-5'>Bạn đã là thành viên</h4>
-            <p>Đăng nhập tại đây với tên đăng nhập và mặt khẩu mà bạn đã được cung cấp</p>
-            <p>(Trình duyệt của bạn cần phải được mở chức năng quản lí cookie)</p>
-        </div>
-        <div class='form__signin'>
-            <form class='form__signin--content'>
-                <div class='d-flex flex-column ms-5'>
-                    <div class='signin-type'>
-                        <label>Tên đăng nhập</label>
-                        <Field type="text" placeholder="Nhập tên đăng nhập" />
-                    </div>
-                    <div class='signin-type'>
-                        <label>Mật khẩu</label>
-                        <Field type="password" placeholder="Nhập mật khẩu" />
-                    </div>
-                    <div class='signin-type mx-auto'>
-                        <button class='button-sumit' type='submit' value="Đăng Nhập">
-                            Đăng Nhập
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</template>
-
 <script>
-    import * as yup from "yup";
-    import {
+import * as yup from "yup";
+import {
+    Form,
+    Field,
+    ErrorMessage
+} from "vee-validate";
+import AccountService from "../../services/taikhoan.service";
+import {
+    useAccountStore
+} from "../../store/useStore";
+export default {
+    components: {
         Form,
         Field,
         ErrorMessage
-    } from "vee-validate";
-    export default {
-        components: {
-            Form, 
-            Field,
-            ErrorMessage
-        },
+    },
 
+    data() {
+        const loginFormSchema = yup.object().shape({
+            mataikhoan: yup
+                .string()
+                .required("Vui lòng nhập tên tài khoản"),
+            matkhau: yup.string().required("Vui lòng nhập mật khẩu")
+        });
+        const accountStore = useAccountStore();
+        return {
+            loginFormSchema,
+            user: {
+                mataikhoan: "",
+                matkhau: "",
+            },
+            account: {},
+            error: false,
+            accountStore
+        }
+    },
+
+    methods: {
+        async submitLoginAccount(data) {
+            try {
+                this.account = await AccountService.login(data);
+
+                // console.log(this.accountStore.user);
+                if (this.account.error) {
+                    this.error = true
+                    this.account.error = "Sai tài khoản hoặc mật khẩu vui lòng nhập lại!"
+                    console.log(this.account.error);
+                } else {
+                    this.accountStore.user = this.account;
+                    this.error = false
+                    if (this.account.phanquyen == 1) {
+                        this.$router.push({
+                            name: 'homepage'
+                        });
+                    }
+                    if (this.account.phanquyen == 2) {
+                        this.$router.push({
+                            name: 'admin'
+                        });
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
+
+}
 </script>
+
+<template>
+<div class='signin-wrapper'>
+    <div class='text-center pt-4 signin--content'>
+        <h4 class='fs-2 mb-5'>Bạn đã là thành viên</h4>
+        <p>Đăng nhập tại đây với tên đăng nhập và mặt khẩu mà bạn đã được cung cấp</p>
+        <p>(Trình duyệt của bạn cần phải được mở chức năng quản lí cookie)</p>
+    </div>
+    <div class='form__signin'>
+        <Form class='form__signin--content' id="form-signin" @submit="submitLoginAccount(this.user)" :validation-schema="loginFormSchema">
+            <div class='d-flex flex-column ms-5'>
+
+                <div class='signin-type d-flex flex-row'>
+                    <label for='mataikhoan'>Tên đăng nhập</label>
+                    <div class='d-flex flex-column'>
+                        <Field type="text" id='name' name='mataikhoan' v-model="this.user.mataikhoan" placeholder="Nhập tên đăng nhập" />
+                        <ErrorMessage name="mataikhoan" class="error-feedback" />
+                    </div>
+                </div>
+
+                <div class='signin-type d-flex flex-row'>
+                    <label for="matkhau">Mật khẩu</label>
+                    <div class='d-flex flex-column'>
+                        <Field name='matkhau' type="password" id='matkhau' v-model="this.user.matkhau" placeholder="Nhập mật khẩu" />
+                        <ErrorMessage name="matkhau" class="error-feedback" />
+                    </div>
+                </div>
+
+                <div class='bg-danger bg-opacity-10 fs-4 text-danger text-center mb-4 py-3' v-if="this.error == true">
+                    <p class=''>{{this.account.error}}</p>
+                </div>
+
+                <div class='signin-type mx-auto'>
+                    <button class='btn btn-primary button-submit '>
+                        Đăng Nhập
+                    </button>
+
+                </div>
+            </div>
+        </Form>
+    </div>
+</div>
+</template>
 
 <style scoped>
 .signin-wrapper {
@@ -85,15 +153,21 @@
     margin-top: 10px;
 }
 
-.button-sumit {
+.button-submit {
     color: white;
-    background-color: #357AFF;
     padding: 4px 10px;
     border: none;
+    font-size: 1em;
 }
 
-.button-sumit:hover {
+.button-submit:hover {
     opacity: 0.5;
 }
-</style>
 
+.error-feedback {
+    color: red;
+    font-size: 1.2rem;
+    margin-left: 5px;
+    ;
+}
+</style>

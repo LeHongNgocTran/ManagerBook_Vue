@@ -11,6 +11,7 @@ export default {
     components: {
         InforBook
     },
+    
 
 }
 </script>
@@ -156,7 +157,7 @@ export default {
             display: block;
             font-size: 1.4rem;
             padding-left: 10px;
-            padding-right:10px;
+            padding-right: 10px;
         }
     }
 }

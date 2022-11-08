@@ -1,127 +1,125 @@
 <template>
-<div class='admin--layouts__wrapper d-flex flex-row'>
-    <!-- Thanh tùy chọn -->
-    <div class='first--admin__container'>
-        <div class='image--admin__content'>
-            <router-link to="/">
-                <img src="../../assets/images/ctu.png" alt="CICT" />
-            </router-link>
-        </div>
-        <div class='catolog--admin__container'>
-            <ul>
-                <li class='list--group__content'>
-                    <router-link :to="{name :'dashboard'}">
-                        <h4>
-                            <font-awesome-icon icon="fa-solid fa-house" />
-                            &nbsp;&nbsp; Dashboard
-                        </h4>
-                    </router-link>
-                </li>
-                <li class='list--group__content'>
-                    <router-link :to="{name : 'listbook' }">
-                        <h4>
-                            <font-awesome-icon icon="fa-solid fa-book" />
-                            &nbsp;&nbsp; Danh sách sách
-                        </h4>
-                    </router-link>
-                </li>
-                <li class='list--group__content'>
-                    <router-link :to="{name : 'listrentbook'}">
-                        <h4>
-                            <font-awesome-icon icon="fa-solid fa-house" />
-                            &nbsp;&nbsp; Sách mượn
-                        </h4>
-                    </router-link>
-                </li>
-                <li class='list--group__content'>
-                    <router-link :to="{name: 'listrenewalbook'}">
-                        <h4>
-                            <font-awesome-icon icon="fa-solid fa-house" />
-                            &nbsp;&nbsp; Đăng ký gia hạn
-                        </h4>
-                    </router-link>
-                </li>
-                <li class='list--group__content'>
-                    <router-link :to="{name:'listmissbook'}">
-                        <h4>
-                            <font-awesome-icon icon="fa-solid fa-house" />
-                            &nbsp;&nbsp; Trả sách trễ hạn
-                        </h4>
-                    </router-link>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- Header của Admin -->
-    <div class='second--admin__container '>
-        <div class='side-bar'>
-            <div class='search-bar'>
-                <input type="text" class="form-control" placeholder="Seach for ..." aria-label="Search" aria-describedby="Search" />
-                <button class='btn px-4'>
-                    <font-awesome-icon icon="fa-solid fa-search" />
-                </button>
+    <div class='admin--layouts__wrapper d-flex flex-row'>
+        <!-- Thanh tùy chọn -->
+        <div class='first--admin__container'>
+            <div class='image--admin__content'>
+                <router-link to="/">
+                    <img src="../../assets/images/ctu.png" alt="CICT" />
+                </router-link>
             </div>
-            <div class='side--bar__right'>
-                <div class='side--bar__button'>
-                    <button>
-                        <font-awesome-icon icon="fa-solid fa-bell" />
-                    </button>
-                    <button>
-                        <font-awesome-icon icon="fa-solid fa-envelope" />
+            <div class='catolog--admin__container'>
+                <ul>
+                    <li class='list--group__content'>
+                        <router-link :to="{ name: 'dashboard' }">
+                            <h4>
+                                <font-awesome-icon icon="fa-solid fa-house" />
+                                &nbsp;&nbsp; Dashboard
+                            </h4>
+                        </router-link>
+                    </li>
+                    <li class='list--group__content'>
+                        <router-link :to="{ name: 'listbook' }">
+                            <h4>
+                                <font-awesome-icon icon="fa-solid fa-book" />
+                                &nbsp;&nbsp; Danh sách sách
+                            </h4>
+                        </router-link>
+                    </li>
+                    <li class='list--group__content'>
+                        <router-link :to="{ name: 'listrentbook' }">
+                            <h4>
+                                <font-awesome-icon icon="fa-solid fa-house" />
+                                &nbsp;&nbsp; Sách mượn
+                            </h4>
+                        </router-link>
+                    </li>
+                    <li class='list--group__content'>
+                        <router-link :to="{ name: 'listrenewalbook' }">
+                            <h4>
+                                <font-awesome-icon icon="fa-solid fa-house" />
+                                &nbsp;&nbsp; Đăng ký gia hạn
+                            </h4>
+                        </router-link>
+                    </li>
+                    <li class='list--group__content'>
+                        <router-link :to="{ name: 'listmissbook' }">
+                            <h4>
+                                <font-awesome-icon icon="fa-solid fa-house" />
+                                &nbsp;&nbsp; Trả sách trễ hạn
+                            </h4>
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Header của Admin -->
+        <div class='second--admin__container '>
+            <div class='side-bar'>
+                <div class='search-bar'>
+                    <input type="text" class="form-control" placeholder="Seach for ..." aria-label="Search"
+                        aria-describedby="Search" />
+                    <button class='btn px-4'>
+                        <font-awesome-icon icon="fa-solid fa-search" />
                     </button>
                 </div>
-                <div class='side--bar__account'>
-                    <div class='button-group dropdown'>
-                        <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Le Hong Ngoc Tran &nbsp;&nbsp;
+                <div class='side--bar__right'>
+                    <div class='side--bar__button'>
+                        <button>
+                            <font-awesome-icon icon="fa-solid fa-bell" />
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li class='content-dropdown'>
-                                <router-link class="dropdown-item p-3 fs-5 " to="#">
-                                    <font-awesome-icon icon="fa-solid fa-user " />
-                                    &nbsp;&nbsp;
-                                    Profile
-                                </router-link>
-                            </li>
-                            <li class='content-dropdown'>
-                                <router-link class="dropdown-item p-3 fs-5" to="#">
-                                    <font-awesome-icon icon="fa-solid fa-gears" />
-                                    &nbsp;&nbsp;Cài đặt
-                                </router-link>
-                            </li>
-                            <li class='content-dropdown'>
-                                <router-link class="dropdown-item p-3 fs-5" to="#">
-                                    <font-awesome-icon icon="fa-solid fa-language" />
-                                    &nbsp;&nbsp;Ngôn ngữ
-                                </router-link>
-                            </li>
-                            <hr />
-                            <li class='content-dropdown'>
-                                <router-link class="dropdown-item p-3 fs-5" to="#">
-                                    <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
-                                    &nbsp;&nbsp;Đăng xuất
-                                </router-link>
-                            </li>
-                        </ul>
+                        <button>
+                            <font-awesome-icon icon="fa-solid fa-envelope" />
+                        </button>
+                    </div>
+                    <div class='side--bar__account'>
+                        <div class='button-group dropdown'>
+                            <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                {{ account.user.hoten }}&nbsp;&nbsp;
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class='content-dropdown'>
+                                    <router-link class="dropdown-item p-3 fs-5 " to="#">
+                                        <font-awesome-icon icon="fa-solid fa-user " />
+                                        &nbsp;&nbsp;
+                                        Profile
+                                    </router-link>
+                                </li>
+                                <li class='content-dropdown'>
+                                    <router-link class="dropdown-item p-3 fs-5" to="#">
+                                        <font-awesome-icon icon="fa-solid fa-gears" />
+                                        &nbsp;&nbsp;Cài đặt
+                                    </router-link>
+                                </li>
+                                <li class='content-dropdown'>
+                                    <router-link class="dropdown-item p-3 fs-5" to="#">
+                                        <font-awesome-icon icon="fa-solid fa-language" />
+                                        &nbsp;&nbsp;Ngôn ngữ
+                                    </router-link>
+                                </li>
+                                <hr />
+                                <li class='content-dropdown'>
+                                    <button @click="logout" class="dropdown-item p-3 fs-5">
+                                        <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+                                        &nbsp;&nbsp;Đăng xuất
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Chứa các component con -->
-        <div class='container-children'>
-            <router-view />
+            <!-- Chứa các component con -->
+            <div class='container-children'>
+                <router-view />
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
-import {
-    library
-} from '@fortawesome/fontawesome-svg-core'
-import {
-    FontAwesomeIcon
-} from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
     faBook,
     faHouse,
@@ -132,19 +130,35 @@ import {
     faSearch,
     faBell,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, faGears, faUser)
+library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, faGears, faUser);
+import { useAccountStore } from '../../store/useStore';
+export default {
+    setup() {
+        const account = useAccountStore();
+        return { account };
+    },
+    methods: {
+        logout() {
+            this.account.user = null;
+            this.$router.push({ name: "homepage" });
+        }
+    }
+}
 </script>
 
-<style lang="scss" scoped>
-// .admin--layouts__wrapper {
-//     height: 100vh;
-// }
+   
 
+
+
+    
+
+<style lang="scss" scoped>
 .first--admin__container {
     position: fixed;
     height: 100vh;
     width: 20%;
     background-color: rgb(26, 26, 61);
+
     .image--admin__content {
         img {
             display: block;
@@ -153,9 +167,11 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
             margin: 20px auto;
         }
     }
-    ul{
+
+    ul {
         padding-right: 2rem;
     }
+
     .list--group__content {
         cursor: pointer;
         margin-bottom: 2rem;
@@ -163,7 +179,7 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
         padding: 10px;
         color: white;
         margin-left: -10px;
-      
+
         a {
             color: white !important;
         }
@@ -185,6 +201,7 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
     position: relative;
     left: 20%;
     width: 80%;
+
     .side-bar {
         background-color: white;
         width: 80%;
@@ -214,7 +231,7 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
         button {
             font-size: 1.6rem;
             height: 4rem;
-            border:none;
+            border: none;
             color: white;
             background-color: rgb(26, 26, 61);
         }
@@ -228,19 +245,18 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
         display: flex;
         flex-direction: row;
         justify-content: end;
-       
+
         button {
             padding: 10px;
             background-color: rgb(255, 255, 255);
             color: gray;
-           
+
         }
     }
 
-
-
     .content-dropdown {
         width: 200px;
+
         a {
             font-size: 1.4rem !important;
         }
@@ -251,8 +267,7 @@ library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, f
         top: 80px;
         background-color: white;
         padding: 20px;
-        z-index:100;
+        z-index: 100;
     }
-
 }
 </style>

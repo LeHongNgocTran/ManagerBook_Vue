@@ -8,51 +8,54 @@ import InforUser from "@/pages/InforUser/inforuser.vue";
 import adminRoutes from "@/router/adminroutes.js";
 
 const routes = [
-    ...adminRoutes,
-    {
+  ...adminRoutes,
+  {
     // Trang chủ
-        path: '/',
-        name: "homepage",
-        component: HomePage,
-    },
-    {// Trang đăn nhập
-        path: '/login',
-        name: 'login',
-        component: LogIn
-    },
-    {// Trang lỗi khi không tìm thấy ID
-        path: "/:pathMatch(.*)*",
-        name: "notfound",
-        component: () => import("@/pages/NotFound.vue")
-    },
-    {
-        // Trang tìm kiếm sách
-        path: "/searchbook",
-        name: 'searchbook',
-        component: SearchBook
-    },
-    {
-        //Trang liên hệ
-        path: '/contact',
-        name:'contact',
-        component: Contact
-    },
-    {
-        // Trang thông tin bạn đọc
-        path: "/inforuser",
-        name: 'inforuser',
-        component: InforUser 
-    }
-    
-    
+    path: "/",
+    name: "homepage",
+    component: HomePage,
+  },
+  {
+    // Trang đăn nhập
+    path: "/login",
+    name: "login",
+    component: LogIn,
+  },
+  {
+    // Trang lỗi khi không tìm thấy ID
+    path: "/:pathMatch(.*)*",
+    name: "notfound",
+    component: () => import("@/pages/NotFound.vue"),
+  },
+  {
+    // Trang tìm kiếm sách
+    path: "/searchbook",
+    name: "searchbook",
+    component: SearchBook,
+  },
+  {
+    //Trang liên hệ
+    path: "/contact",
+    name: "contact",
+    component: Contact,
+  },
+  {
+    // Trang thông tin bạn đọc
+    path: "/inforuser",
+    name: "inforuser",
+    component: InforUser,
+  },
 ];
 // console.log(routes);
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: routes,
-    scrollBehavior(to,from, savedPosition){
-        return {x: 0, y: 0}
-    }
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) 
+      return savedPosition;
+    else 
+        return { x: 0, y: 0 };
+  },
 });
 
 export default router;

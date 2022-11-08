@@ -1,13 +1,6 @@
-// import {defineStore} from "pinia";
-// import BookService from "@/services/book.service";
-// export const useStore = defineStore('main',{
-//     state: () => ({
-//         book: []
-//     }),
-//     getters: {
-//         this.book = this.BookService.getAll();
-//     },
-//     actions : {
-
-//     }
-// });
+import { defineStore } from "pinia";
+// Dữ liệu chung của VueStore
+// Lưu trữ account đăng nhập
+export const useAccountStore = defineStore('account',{
+    state: () => ({user:null})
+})

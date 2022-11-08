@@ -4,7 +4,7 @@
             <p class='p-3 fs-4'>TỔNG QUAN</p>
         </div>
         <!-- chưa hiển thị details -->
-        <div class='inforbook border p-3 my-4' v-for="book of this.books" :key="books._id">
+        <div id='infor__books' class='inforbook border p-3 my-4' v-for="book of this.books" :key="books._id">
             <div class='inforbook-content' v-if="book.isActive == null">
                 <p>
                     <strong>Tên sách: </strong>
@@ -103,29 +103,34 @@
                 </button>
             </div>
         </div>
+
+        <div class="d-flex justify-content-center">
+            <b-pagination 
+                v-model="currentPage" 
+                :total-rows="rows" 
+                size="sm"></b-pagination>
+        </div>
     </div>
 </template>
 
 <script>
-import {
-    library
-} from '@fortawesome/fontawesome-svg-core'
-import {
-    FontAwesomeIcon
-} from '@fortawesome/vue-fontawesome';
-import {
-    faArrowRight,
-    faArrowLeft
-} from "@fortawesome/free-solid-svg-icons";
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import {faArrowRight,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 library.add(faArrowRight, faArrowLeft);
+
+
 import BookService from "@/services/book.service";
 export default {
     data() {
         return {
+            perpage : 3,
+            currentPage: 1,
             isActive: true,
             books: []
         }
     },
+    compatConfig:{MODE: 3},
     methods: {
         async getAllBook() {
             try {
@@ -141,6 +146,11 @@ export default {
             } else {
                 this.isActive = true;
             }
+        }
+    },
+    computed: {
+        rows(){
+            return this.books.length;
         }
     },
     mounted() {
