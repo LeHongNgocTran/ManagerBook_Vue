@@ -10,6 +10,8 @@ import ListRentBook from "../pages/Admin/ListRentBook.vue";
 import ListRenewalBook from "../pages/Admin/BookRenewal.vue";
 import ListMissBook from "../pages/Admin/ListMissBook.vue";
 import InforLendBook from "../pages/Admin/InforLendBook.vue";
+import FormLendBook from "../layouts/LayoutAdmin/FormLendBook.vue";
+import DuyetPhieuGiaHan from "../pages/Admin/duyetphieugiahan.vue";
 
 export default [
     {
@@ -19,7 +21,7 @@ export default [
         children: [
             {
                 // Trang tổng quan
-                path: "dashboard",
+                path: "",
                 name: 'dashboard',
                 component: Dashboard
             },
@@ -66,6 +68,18 @@ export default [
                 path:'lendbook',
                 name: "inforlendbook",
                 component: InforLendBook
+            },
+            {
+                path: 'duyetphieu/:id',
+                name: 'duyetphieu',
+                component : FormLendBook,
+                params: true
+            },
+            {
+                path:"duyetphieugiahan/:id",
+                name: 'duyetphieugiahan',
+                component: DuyetPhieuGiaHan,
+                params: true
             }
             
         ]

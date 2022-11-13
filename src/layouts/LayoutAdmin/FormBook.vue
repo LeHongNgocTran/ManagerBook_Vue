@@ -53,7 +53,7 @@ export default {
 
 <template>
     <Form @submit="submitBook" :validation-schema="bookFormSchema">
-        <div class='container-fluid mb-5'>
+        <div class='container-fluid mb-5 p-5 shadow border bg-white rounded-2'>
             <div class="row">
                 <div class="col mb-5">
                     <!-- Name input -->
@@ -151,7 +151,7 @@ label {
 
 input,
 select {
-    height: 40px;
+    height: 60px;
     font-size: 1.6rem;
 }
 

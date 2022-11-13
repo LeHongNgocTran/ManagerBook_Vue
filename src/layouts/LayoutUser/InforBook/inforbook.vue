@@ -4,12 +4,12 @@
             <p class='p-3 fs-4'>TỔNG QUAN</p>
         </div>
         <!-- chưa hiển thị details -->
-        <div id='infor__books' 
+        <div @click="updateActiveIndex(index)" id='infor__books' 
             class='inforbook border p-3 my-4' 
             v-for="book of this.displayBooks" :key="books._id">
             <div class='inforbook-content' v-if="book.isActive == null">
-                <p>
-                    <strong>Tên sách: </strong>
+                <p class='text-primary'>
+                    <strong class='text-dark'>Tên sách: </strong>
                     {{ book.tensach }}
                 </p>
                 <p>
@@ -19,8 +19,8 @@
                 <p>
                     <strong>Nhà xuất bản:</strong> {{ book.tenNXB }}
                 </p>
-                <p>
-                    <strong>Số thứ thự trên kệ sách:</strong> {{ book.stt }}/{{ book.soke }}/{{ book.tenday }} -
+                <p class='text-primary'>
+                    <strong class='text-dark'>Số thứ thự trên kệ sách:</strong> {{ book.stt }}/{{ book.soke }}/{{ book.tenday }} -
                     STT/SOKE/TENDAY
                 </p>
                 <p>
@@ -127,27 +127,35 @@ library.add(faArrowRight, faArrowLeft);
 
 import BookService from "@/services/book.service";
 export default {
+    props: {
+      books : {type: Array, default : []},
+      activeIndex: {type: Number, default : -1}  
+    },
+    emits: ["update: activeIndex"],
     data() {
         return {
             perPage : 3,
             currentPage: 3,
-            rows: 1,
+            rows: this.books.length,
             isActive: true,
-            books: [],
-            displayBooks:[]
+            // books: [],
+            displayBooks:this.books.slice(0,3),
         }
     },
     methods: {
-        async getAllBook() {
-            try {
-                this.books = await BookService.getAll();
-                this.displayBooks = this.books.slice(0,3);
-                this.rows = this.books.length   ;
-            } catch (error) {
-                console.log(error);
-            }
-        },
+        // async getAllBook() {
+        //     try {
+        //         this.books = await BookService.getAll();
+        //         this.displayBooks = this.books.slice(0,3);
+        //         this.rows = this.books.length   ;
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // },
 
+        updateActiveIndex(index){
+            this.$emit("update: activeIndex",index)
+        },
         toggleDetailsBook() {
             if (this.isActive == true) {
                 this.isActive = false;
@@ -162,9 +170,9 @@ export default {
             this.displayBooks = this.books.slice(start, start+3);
         }
     },
-    mounted() {
-        this.getAllBook();
-    }
+    // mounted() {
+    //     this.getAllBook();
+    // }
 }
 </script>
 

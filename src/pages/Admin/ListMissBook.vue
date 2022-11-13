@@ -12,17 +12,17 @@
                 <font-awesome-icon icon="fa-solid fa-file-pdf" /> Xuất PDF
             </button>
         </div>
-        <div class="shadow mt-5">
-            <table class='table table-striped'>
+        <div class="shadow mt-5 bg-white">
+            <table class='table table-hover'>
                 <thead>
-                    <tr class="text-center">
-                        <th>STT</th>
-                        <th>Mã phiếu mượn</th>
-                        <th>Mã sinh viên</th>
-                        <th>Số lượng sách</th>
-                        <th>Trạng thái</th>
-                        <th>Tác vụ</th>
-                        <th>Chi tiết</th>
+                    <tr class="text-center text-uppercase">
+                        <th class='py-3'>STT</th>
+                        <th class='py-3'>Mã phiếu mượn</th>
+                        <th class='py-3'>Mã sinh viên</th>
+                        <th class='py-3'>Số lượng sách</th>
+                        <th class='py-3'>Trạng thái</th>
+                        <th class='py-3'>Tác vụ</th>
+                        <th class='py-3'>Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>

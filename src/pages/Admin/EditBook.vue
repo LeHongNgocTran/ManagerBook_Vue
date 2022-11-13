@@ -12,7 +12,7 @@ export default {
         async getBook() {
             try {
                 this.book = await BookService.getBookId(this.$route.params.id);
-                console.log(this.book);
+                // console.log(this.book);
             }
             catch (error) {
                 console.log(error);

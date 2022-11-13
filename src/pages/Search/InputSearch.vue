@@ -14,3 +14,50 @@
         </button>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        modelValue: { type: String, default: "" }
+    },
+    emits: ["submit", "update:modelValue"],
+    methods: {
+        updateModelValue(e) {
+            this.$emit("update:modelValue", e.target.value)
+        },
+        submit() {
+            this.$emit("submit");
+        }
+    }
+}
+</script>
+
+<style lang='scss' scoped>
+input {
+    width: 57%;
+    font-size: 1.5rem;
+    border: none;
+}
+
+.search__button {
+    margin-left: 1.2rem;
+
+    button {
+        background-color: #4396ca;
+        height: 100%;
+        border: none;
+        width: 100%;
+        display: block;
+        font-size: 1.4rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.search__bar--options {
+    border: none;
+    margin-right: 1.5rem;
+    background-color: white;
+
+}
+</style>

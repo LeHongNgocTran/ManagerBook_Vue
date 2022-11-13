@@ -1,5 +1,5 @@
 <template>
-    <div class='listbook--wrapper'>
+    <div class='listbook--wrapper mb-5'>
         <h2 class="fs-1 py-5">DANH SÁCH SÁCH</h2>
         <div class='function-container'>
             <button class='btn btn-primary fs-4' :onClick="changetoaddbook">
@@ -13,17 +13,17 @@
             </button>
         </div>
         <div class="shadow mt-2">
-            <table class='table table-striped table-hover'>
+            <table class='table table-hover bg-white'>
                 <thead>
-                    <tr class="text-center">
-                        <th>STT</th>
-                        <th>Hình ảnh</th>
-                        <th>Tên sách</th>
-                        <th>Tác giả</th>
-                        <th>Thể loại</th>
-                        <th>Trạng thái</th>
-                        <th>Tác vụ</th>
-                        <th>Chi tiết</th>
+                    <tr class="text-center text-uppercase  ">
+                        <th class='py-3'>STT</th>
+                        <th class='py-3'>Hình ảnh</th>
+                        <th class='py-3'>Tên sách</th>
+                        <th class='py-3'>Tác giả</th>
+                        <th class='py-3'>Thể loại</th>
+                        <th class='py-3'>Trạng thái</th>
+                        <th class='py-3'>Tác vụ</th>
+                        <th class='py-3'>Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,12 +31,12 @@
                         :key="book._id" 
                         class="text-center align-middle">
                         <td>{{ index + 1 }}</td>
-                        <td class='w-25'>
-                            <img class="w-25" :src="book.imageUrl" alt="Book1" />
+                        <td style="width: 200px" >
+                            <img class=" w-50" :src="book.imageUrl" alt="Book1" />
                         </td>
                         <td class='w-25'>{{ book.tensach }}</td>
                         <td>{{ book.tentacgia }}</td>
-                        <td>{{ book.maloai }}</td>
+                        <td>{{ book.tenloai }}</td>
                         <td>
                             <button class='btn btn-danger w-100' v-if="book.trangthai == false">Đã mượn</button>
                             <button class='btn btn-success w-100 ' v-else>Chưa mượn</button>
@@ -95,7 +95,7 @@ export default {
             });
         },
         reFreshList(){
-            console.log('abc');
+            // console.log('abc');
             this.getAllBook();
         },
         async deletebook(id) {
@@ -103,8 +103,6 @@ export default {
             if (confirm(text) == true) {
                try{
                    await BookService.deleteId(id)
-                   console.log(id);
-
                    this.reFreshList();
             } catch(error){
                 console.log(error);

@@ -4,3 +4,7 @@ import { defineStore } from "pinia";
 export const useAccountStore = defineStore('account',{
     state: () => ({user:null})
 })
+
+export const useBookStore = defineStore('book',{
+    state: () => ({book:null})
+})

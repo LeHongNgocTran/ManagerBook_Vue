@@ -6,16 +6,13 @@
                 <button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <font-awesome-icon icon="fa-solid fa-filter" /> Lọc danh sách
-            
+
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><button class="dropdown-item fs-4" type="button">Chưa duyệt</button></li>
                     <li><button class="dropdown-item fs-4" type="button">Đã duyệt</button></li>
                 </ul>
             </div>
-            <button class='btn btn-primary fs-4'>
-                <font-awesome-icon icon="fa-solid fa-plus" /> Duyệt danh sách
-            </button>
             <button class='btn btn-success fs-4'>
                 <font-awesome-icon icon="fa-solid fa-file-excel" /> Xuất Excel
             </button>
@@ -23,56 +20,41 @@
                 <font-awesome-icon icon="fa-solid fa-file-pdf" /> Xuất PDF
             </button>
         </div>
-        <div class="shadow mt-2">
-            <table class='table table-striped'>
+        <div class="shadow mt-2 bg-white">
+            <table class='table table-hover'>
                 <thead>
-                    <tr class="text-center">
-                        <th>STT</th>
-                        <th>Mã phiếu mượn</th>
-                        <th>Mã sinh viên</th>
-                        <th>Số lượng sách</th>
-                        <th>Trạng thái</th>
-                        <th>Tác vụ</th>
-                        <th>Chi tiết</th>
+                    <tr class="text-center text-uppercase">
+                        <th class='py-3'>STT</th>
+                        <th class='py-3'>Mã phiếu mượn</th>
+                        <th class='py-3'>Mã sinh viên</th>
+                        <th class='py-3'>Số lượng sách</th>
+                        <th class='py-3'>Trạng thái</th>
+                        <th class='py-3'>Tác vụ</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-center align-middle">
-                        <td>1</td>
+                    <tr v-for="(giahan, index) in this.phieugiahan"
+                        :key="giahan._id"
+                        class="text-center align-middle">
+                        <td>{{index + 1}}</td>
                         <td>
-                           ML001
+                            {{giahan.maphieumuon}}
                         </td>
-                        <td>B1910317</td>
-                        <td>10</td>
+                        <td>{{giahan.thongtingiahan[0].masinhvien}}</td>
+                        <td>{{giahan.thongtingiahan[0].danhsachsach.length}}</td>
                         <td>
-                            <button class='btn btn-success w-50'>Đã duyệt</button>
-                        </td>
-                        <td>
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square" />
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-trash" />
-                        </td>
-                        <td>
-                            <font-awesome-icon class='button-function' :onClick={} icon='fa-solid fa-circle-info'/> 
-                        </td>
-                    </tr>
-                    <tr class="text-center align-middle">
-                        <td>1</td>
-                        <td>
-                           ML001
-                        </td>
-                        <td>B1910317</td>
-                        <td>10</td>
-                        <td>
-                            <button class='btn btn-danger w-50'>Chưa duyệt</button>
+                            <button v-if="giahan.trangthai == false " class='btn btn-danger w-50'>Chưa duyệt</button>
+                            <button v-if="giahan.trangthai == true " class='btn btn-success w-50'>Đã duyệt</button>
                         </td>
                         <td>
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square" />
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-trash" />
-                        </td>
-                        <td>
-                            <font-awesome-icon class='button-function' :onClick={} icon='fa-solid fa-circle-info'/> 
+                            <font-awesome-icon 
+                                @click = 'changetoduyetphieu(giahan._id)'
+                                class='button-function' 
+                                icon="fa-solid fa-pen-to-square" />
                         </td>
                     </tr>
+            
                 </tbody>
             </table>
         </div>
@@ -80,47 +62,58 @@
 </template>
 
 <script>
-import {
-    library
-} from '@fortawesome/fontawesome-svg-core'
-import {
-    FontAwesomeIcon
-} from '@fortawesome/vue-fontawesome';
-import {
-    faTrash,
-    faPenToSquare,
-    faPlus,
-    faFileExcel,
-    faFilePdf,
-    faCircleInfo,
-    faFilter
-} from "@fortawesome/free-solid-svg-icons";
-library.add(
-    faTrash,
-    faPenToSquare,
-    faPlus,
-    faFileExcel,
-    faFilePdf,
-    faCircleInfo,
-    faFilter)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faTrash, faPenToSquare, faPlus, faFileExcel, faFilePdf, faCircleInfo, faFilter } from "@fortawesome/free-solid-svg-icons";
+library.add(faTrash, faPenToSquare, faPlus, faFileExcel, faFilePdf, faCircleInfo, faFilter);
+import PhieuGiaHanService from "@/services/phieugiahan.service";
+export default {
+    data() {
+        return {
+            phieugiahan: null
+        }
+    },
+    methods: {
+        async getAllPhieuGiaHan() {
+            try {
+                this.phieugiahan = await PhieuGiaHanService.getAllPhieuGiaHan();
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
+        changetoduyetphieu(id){
+            this.$router.push({
+                name :  "duyetphieugiahan",
+                params: { id: id }
+            })
+        }
+    },
+    created(){
+        this.getAllPhieuGiaHan();
+    }
+}
 </script>
 
 <style lang="scss" scoped>
-.listbook--wrapper{
-button{
+.listbook--wrapper {
+    button {
         padding: 8px;
-        font-size:1.2rem;
+        font-size: 1.2rem;
     }
 }
-.function-container{
+
+.function-container {
     margin-bottom: 20px;
-    button{
+
+    button {
         margin-right: 10px;
     }
 }
-.button-function{
+
+.button-function {
     margin-right: 5px;
-    font-size:2rem;
+    font-size: 2rem;
     cursor: pointer;
 }
 </style>

@@ -44,6 +44,29 @@ const routes = [
     path: "/inforuser",
     name: "inforuser",
     component: InforUser,
+    children : [
+      {
+        path: "",
+        name :'name',
+        component: () => import("@/pages/InforUser/inforname.vue")
+      },
+      {
+        path: "QLPM",
+        name :"phieumuon",
+        component: () => import("@/pages/InforUser/userphieumuon.vue")
+      },
+      {
+        path: "QLGH",
+        name :"giahan",
+        component: () => import("@/pages/InforUser/usergiahan.vue")
+      },
+      {
+        path: "dtailsPhieuMuon/:id",
+        name : "detailsphieumuon",
+        component: () => import("@/pages/InforUser/detailsphieumuon.vue"),
+        params : true
+      }
+    ]
   },
 ];
 // console.log(routes);

@@ -55,6 +55,8 @@ export default {
     bottom: 10px;
     right: 1%;
     z-index: 2000;
-  
+}
+#app {
+    font-family: 'Poppins', sans-serif;
 }
 </style>

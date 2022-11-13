@@ -21,7 +21,7 @@
                         <router-link :to="{ name: 'listbook' }">
                             <h4>
                                 <font-awesome-icon icon="fa-solid fa-book" />
-                                &nbsp;&nbsp; Danh sách sách
+                                &nbsp;&nbsp; Quản lý sách
                             </h4>
                         </router-link>
                     </li>
@@ -29,7 +29,7 @@
                         <router-link :to="{ name: 'listrentbook' }">
                             <h4>
                                 <font-awesome-icon icon="fa-solid fa-house" />
-                                &nbsp;&nbsp; Sách mượn
+                                &nbsp;&nbsp; Quản lý sách mượn
                             </h4>
                         </router-link>
                     </li>
@@ -37,7 +37,7 @@
                         <router-link :to="{ name: 'listrenewalbook' }">
                             <h4>
                                 <font-awesome-icon icon="fa-solid fa-house" />
-                                &nbsp;&nbsp; Đăng ký gia hạn
+                                &nbsp;&nbsp; Quản lý đăng ký gia hạn
                             </h4>
                         </router-link>
                     </li>
@@ -45,7 +45,7 @@
                         <router-link :to="{ name: 'listmissbook' }">
                             <h4>
                                 <font-awesome-icon icon="fa-solid fa-house" />
-                                &nbsp;&nbsp; Trả sách trễ hạn
+                                &nbsp;&nbsp; Quản lý trả sách trễ hạn
                             </h4>
                         </router-link>
                     </li>
@@ -73,7 +73,8 @@
                     </div>
                     <div class='side--bar__account'>
                         <div class='button-group dropdown'>
-                            <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            <button class=" dropdown-toggle" type="button"
+                             data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 {{ account.user.hoten }}&nbsp;&nbsp;
                             </button>
@@ -109,6 +110,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Chứa các component con -->
             <div class='container-children'>
                 <router-view />
@@ -265,9 +267,10 @@ export default {
     .container-children {
         position: relative;
         top: 80px;
-        background-color: white;
+        background-color: rgb(247, 247, 247);
         padding: 20px;
         z-index: 100;
+        height: 100vh;
     }
 }
 </style>

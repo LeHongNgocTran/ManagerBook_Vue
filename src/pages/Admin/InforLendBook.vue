@@ -1,31 +1,31 @@
 <template>
     <div class='add--wrapper'>
         <h2 class="fs-1 py-5">THÊM THÔNG TIN SINH VIÊN MƯỢN SÁCH</h2>
-        <div class='second--add__container'>
+        <div class='second--add__container bg-white py-5'>
             <div class='container-fluid mb-5'>
-                <div class="row">
-                    <div class="col mb-5">
+                <div class="row mb-5">
+                    <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
                             <label class="form-label" for="mssv">Mã số sinh viên</label>
-                            <input type="text" id="mssv" class="form-control" />
+                            <input type="text" name="masinhvien" v-model="this.infor.masinhvien" class="form-control" />
                         </div>
                     </div>
                     <div class="col">
                         <!-- Loại sách -->
-                        <label for="namestudent">Tên sinh viên</label>
-                        <input type="text" id="namestudent" class="form-control" />
+                        <label for="hoten">Tên sinh viên</label>
+                        <input type="text" name="hoten" v-model="this.infor.hoten" class="form-control" />
                     </div>
                 </div>
                 <div class="row mb-5">
                     <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
-                            <label class="form-label" for="idbook">Mã sách</label>
+                            <label class="form-label" for="idbook">Tên sách</label>
                             <div class='d-flex flex-row'>
-                                <input type="text" id="idbook" class="form-control me-3" />
-                                <button class='btn btn-success d-flex flex-row px-3 py-2'
-                                @click = "">
+                                <input type="text" id="idbook" name='book' @keyup.enter="addbook" v-model="book"
+                                    class="form-control me-3" />
+                                <button class='btn btn-success d-flex flex-row px-3 py-2' @click="addbook">
                                     <font-awesome-icon icon="fa-solid fa-plus" class='mt-2' />
                                     &nbsp;Thêm
                                 </button>
@@ -35,22 +35,21 @@
                 </div>
                 <div class='row mb-5'>
                     <div class='col'>
-                        <table class='table table-striped'>
+                        <table class='table table-hover'>
                             <thead>
-                                <tr class="text-center">
-                                    <th>STT</th>
-                                    <th>Mã sách</th>
-                                    <!-- <th>Tên sách</th> -->
-                                    <th>Tác vụ</th>
+                                <tr class="text-center text-uppercase bg-secondary bg-opacity-25 ">
+                                    <th class='py-3'>STT</th>
+                                    <th class='py-3'>Tên sách</th>
+                                    <th class='py-3'>Tác vụ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center align-middle">
-                                    <td>1</td>
-                                    <td>{{id}}</td>
-                                    <!-- <td>Cây cam ngọt của tôi</td> -->
-                                    <td>
-                                        <button v-on:click="$emit('remove')">X</button>
+                                <tr id='lits-book-item' v-for="(book, index) in books" v-bind:key="index"
+                                    v-bind:title="book.title" class="text-center align-middle">
+                                    <td class='py-2'>{{ index + 1 }}</td>
+                                    <td class='py-2'>{{ book.title }}</td>
+                                    <td class='py-2'>
+                                        <button @click="deleteBook(index)">X</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -58,25 +57,86 @@
                     </div>
                 </div>
                 <div class='row'>
+                    <div class='col'>
+                        <router-link :to="{ name: 'listrentbook' }">
+                            <font-awesome-icon icon="fa-solid fa-arrow-left" />
+                            &nbsp; Quay lại
+                        </router-link>
+                    </div>
                     <div class='col d-flex justify-content-end'>
-                        <button class='btn btn-primary'>
+                        <button class='btn btn-primary' @click="addPhieuMuon()">
                             <font-awesome-icon icon="fa-solid fa-plus" class='mt-2' />
                             &nbsp;Hoàn tất
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>
-        <router-link :to="{ name: 'listrentbook' }">
-            <font-awesome-icon icon="fa-solid fa-arrow-left" />
-            &nbsp; Quay lại
-        </router-link>
+
     </div>
 </template>
 
 
 <script>
+import PhieuMuonService from "@/services/phieumuon.service";
+import { useBookStore } from "@/store/useStore";
+export default {
 
+    data() {
+        // Ngày bắt đầu mượn
+        var dateTimeStart = new Date();
+        // var dateStart = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        // var startime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        // var dateTimeStart = startime + ' ' + dateStart;
+        
+        // Ngày hết hạn
+        var dateTimeEnd = new Date();
+        dateTimeEnd.setDate(dateTimeEnd.getDate() + 3)
+        // var dateEnd = endday.getDate() + '-' + (endday.getMonth() + 1) + '-' + endday.getFullYear();
+        // var dateTimeEnd = startime + ' ' + dateEnd;
+
+        return {
+            book: "",
+            books: [],
+            nextBookId: 1,
+            infor: [],
+            phieumuon: [],
+            length: useBookStore().book,
+            trangthai: false,
+            dateTimeStart,
+            dateTimeEnd
+        }
+    },
+    methods: {
+        addbook() {
+            this.books.push({
+                title: this.book
+            })
+            this.newBookId = ''
+            this.book = ''
+        },
+
+        deleteBook(i) {
+            this.books.splice(i, 1)
+        },
+
+        async addPhieuMuon() {
+            const data = {
+                _id: 'PM' + useBookStore().book,
+                ...this.infor,
+                danhsachsach: this.books,
+                trangthai: this.trangthai,
+                dateTimeStart: this.dateTimeStart,
+                dateTimeEnd: this.dateTimeEnd,
+            };
+            this.phieumuon = await PhieuMuonService.createPhieuMuon(data);
+            if (confirm("Thêm phiếu mượn thành công!!!")) {
+                this.$router.push({ name: 'listrentbook' });
+            }
+        }
+    }
+}
 </script>
 
 

@@ -3,7 +3,7 @@
         <div class='footer-container'>
             <div class='footer-image'></div>
             <div class='footer-infor'>
-                <h5>thư viện khoa công nghệ thông tin và truyền thông - đại học cần thơ</h5>
+                <h5 class='fw-bold'>thư viện khoa công nghệ thông tin và truyền thông - đại học cần thơ</h5>
                     <p>Khu 2 - Đường 3/2 - Quận Ninh Kiều - Thành Phố Cần Thơ</p>
                     <p>Điện thoại: 02923831565</p>
                     <p>Email : vpthuvienvelcit@ctu.edu.vn</p>

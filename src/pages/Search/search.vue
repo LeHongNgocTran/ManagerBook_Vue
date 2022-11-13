@@ -6,35 +6,70 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faCirclePlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import InputSearch from "./InputSearch.vue";
+import BookService from "@/services/book.service"
 library.add(faCirclePlus, faSearch)
 
 export default {
+    components: {
+        InforBook,
+        InputSearch,
+        books : []
+    },
     data() {
         return {
             modelValue: "",
             searchText: "",
-            activeIndex: -1
+            activeIndex: -1,
+            books: []
         }
     },
-    watch : {
+    watch: {
         searchText() {
             this.activeIndex = -1;
         },
     },
-    components: {
-        InforBook,
-        InputSearch
-    },
-    emits: ["submits","update:modelValue"],
-    methods: {
-        updateModelValue(e) {
-            this.$emit("update:modelValue", e.target.value);
-        },
-        submit() {
-            this.$emit("submit");
-        }
-    }
+    computed: {
+      booksString(){
+        return this.books.map((book) => {
+            const {tensach,tentacgia,tenNXB,tenloai} = book;
+            return [tensach,tentacgia,tenNXB,tenloai].join("");
+        });
+      },
+      filteredBooks(){
+        if(!this.searchText) 
+            return this.books
+        return this.books.filter((_book, index) => 
+            this.booksString[index].includes(this.searchText)
+        )
+      },
+      activeBook(){
+        if(this.activeIndex < 0) 
+            return null;
+        return this.filteredBooks[this.activeIndex];
+      },
 
+      filteredBookCount(){
+        return this.filteredBooks.length;
+      }
+    },
+    methods: {
+        async getAllBook() {
+            try {
+                this.books = await BookService.getAll();
+                this.displayBooks = this.books.slice(0,3);
+                this.rows = this.books.length   ;
+            } catch (error) {
+                console.log(error);
+            }
+        } ,
+        refreshList(){
+            this.getAllBook();
+            this.activeIndex = -1;
+        }   
+    },
+    mounted(){
+        this.refreshList();
+    }
 
 }
 </script>
@@ -74,9 +109,14 @@ export default {
                     <li class='fw-bold pe-4'>Cơ bản</li>
                 </ul>
                 <div class='second--search__bar'>
-                   <InputSearch v-model="searchText"/>
+                    <InputSearch v-model="searchText" />
                 </div>
-                <InforBook></InforBook>
+                <InforBook 
+                    v-if="filteredBookCount > 0"
+                    :books = "filteredBooks"
+                    v-model:activeIndex="activeIndex"
+                ></InforBook>
+                <p class="mt-4 bg-danger bg-opacity-10 text-danger py-4 ps-3" v-else>Không tìm thấy sách phù hợp với yêu cầu của bạn.</p>
             </div>
         </div>
     </div>
@@ -94,7 +134,7 @@ export default {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    height: 100%;
+    height: 1000px;
 }
 
 .first--search__container {

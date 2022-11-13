@@ -34,7 +34,7 @@ export default {
 <template>
     <div class='add--wrapper'>
         <h2 class="fs-1 py-5">THÊM SÁCH</h2>
-        <div class='second--add__container'>
+        <div class='second--add__container ' >
             <BookForm :book="this.book" @submit:book="addContact" />
         </div>
     </div>

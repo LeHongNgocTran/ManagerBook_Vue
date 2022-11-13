@@ -5,13 +5,13 @@
 
             <ul class='list-find'>
                 <li>
-                    <router-link to="#">
+                    <router-link :to="{name : 'searchbook'}">
                         <font-awesome-icon icon='fa-solid fa-rocket' />
                         &nbsp;&nbsp;Tìm nhanh
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="#">
+                    <router-link :to="{name : 'searchbook'}">
                         <font-awesome-icon icon='fa-solid fa-search' />
                         &nbsp;&nbsp;Cơ bản
                     </router-link>
