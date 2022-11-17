@@ -9,8 +9,12 @@
 
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><button class="dropdown-item fs-4" type="button">Chưa trả</button></li>
-                    <li><button class="dropdown-item fs-4" type="button">Đã trả</button></li>
+                    <li><button class="dropdown-item fs-4" 
+                        type="button"
+                        @click = "filterChualoc(false)">Chưa trả</button></li>
+                    <li><button class="dropdown-item fs-4" type="button"
+                        @click = "filterChualoc(true)"
+                        >Đã trả</button></li>
                 </ul>
             </div>
             <button class='btn btn-primary fs-4' type="button" @click="changeToInforLend">
@@ -37,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(phieumuon, index) in this.phieumuon" :key="phieumuon._id"
+                    <tr v-for="(phieumuon, index) in this.danhsachduyet" :key="phieumuon._id"
                         class="text-center align-middle">
                         <td>{{ index + 1 }}</td>
                         <td>{{ phieumuon.masinhvien }}</td>
@@ -83,11 +87,11 @@
                             </tr>
                             <tr>
                                 <td class='py-2'> <strong>Thời gian bắt đầu mượn: </strong> </td>
-                                <td class='py-2'>{{ setDate(this.selected.dateTimeStart)}}</td>                                     
+                                <td class='py-2'>{{ setDate(this.selected.dateTimeStart) }}</td>
                             </tr>
                             <tr>
                                 <td class='py-2'> <strong>Thời gian hết hạn: </strong> </td>
-                                <td class='py-2'>{{ setDate(this.selected.dateTimeEnd)}}</td>
+                                <td class='py-2'>{{ setDate(this.selected.dateTimeEnd) }}</td>
                             </tr>
                             <tr>
                                 <td class='py-2'> <strong>Trạng thái: </strong> </td>
@@ -142,7 +146,9 @@ export default {
             bookStore,
             selected: null,
             dateTimeStart: '',
-            dateTimeEnd: ''
+            dateTimeEnd: '',
+            danhsachduyet: [],
+            
         };
     },
     methods: {
@@ -155,6 +161,7 @@ export default {
         async getAllPhieuMuon() {
             try {
                 this.phieumuon = await PhieuMuonService.getAllPhieuMuon();
+                this.danhsachduyet = this.phieumuon;
                 this.bookStore.book = this.phieumuon.length;
             }
             catch (error) {
@@ -186,6 +193,12 @@ export default {
             catch (error) {
                 console.log(error);
             }
+        },
+
+        filterChualoc(filter) {
+            this.danhsachduyet = this.phieumuon.filter(e => e.trangthai == filter);
+            console.log(this.danhsachduyet);
+            // this.reFreshList();
         }
     },
     mounted() {

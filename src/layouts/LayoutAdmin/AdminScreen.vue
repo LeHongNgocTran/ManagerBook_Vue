@@ -49,6 +49,14 @@
                             </h4>
                         </router-link>
                     </li>
+                    <li class='list--group__content' v-if='this.account.user.phanquyen == 3'>
+                        <router-link :to="{ name: 'listmissbook' }">
+                            <h4>
+                                <font-awesome-icon icon="fa-solid fa-user" />
+                                &nbsp;&nbsp; Quản lý tài khoản
+                            </h4>
+                        </router-link>
+                    </li>
                 </ul>
             </div>
         </div>

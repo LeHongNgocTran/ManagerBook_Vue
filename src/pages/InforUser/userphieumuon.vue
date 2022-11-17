@@ -1,6 +1,6 @@
 <template>
     <p class='user--infor__title fs-2'>Thông tin phiếu mượn</p>
-    <div class='information-content'>
+    <div class='information-content' v-if='this.phieumuon.length !== 0'>
         <table class='table table-hover text-center border shadow'>
             <thead>
                 <tr>
@@ -28,6 +28,12 @@
             </tbody>
         </table>
     </div>
+    <div v-else>
+        <p class='bg-danger bg-opacity-10 ps-3 py-5'>
+            <strong>Thông báo: </strong>
+            KHÔNG CÓ PHIẾU MƯỢN NÀO
+        </p>
+    </div>
 </template>
 
 <script>
@@ -43,8 +49,6 @@ export default {
     },
     methods:{
         async getAllInfor(){
-            // console.log(typeof this.name.masinhvien);
-            // console.log(this.phieumuon)
             this.phieumuon = await PhieuMuonService.getPhieuMuonByMSSV({masinhvien : this.name.masinhvien});
         },
         changeToDetails (id){
@@ -54,7 +58,7 @@ export default {
             })
         }
     },
-    mounted(){
+    created(){
         this.getAllInfor();
     }
 }

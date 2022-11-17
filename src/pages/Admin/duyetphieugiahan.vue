@@ -83,7 +83,9 @@
                     </router-link>
                 </div>
                 <div class='col d-flex justify-content-end'>
-                    <button class='btn btn-primary py-2 fs-4'>Duyệt trả sách</button>
+                    <button 
+                        @click = "this.duyetphieu"
+                        class='btn btn-primary py-2 fs-4'>Duyệt trả sách</button>
                 </div>
             </div>
         </div>
@@ -91,6 +93,7 @@
 </template>
 <script>
 import GiaHanService from "@/services/phieugiahan.service";
+import PhieuMuonService from "@/services/phieumuon.service";
 export default {
     data() {
 
@@ -115,7 +118,29 @@ export default {
             catch (error) {
                 console.log(error)
             }
+        },
+        async duyetphieu(){
+            try{
+                // console.log(this.phieumuon);
+                if(confirm("Xác nhận duyệt đăng ký gia hạn!")){
+                    this.phieugiahan = await GiaHanService.duyetphieu(
+                        this.phieumuon._id,
+                        {trangthai: true}
+                    );
+                    // console.log(this.phieumuon)
+                    this.phieumuon = await PhieuMuonService.duyetphieu(
+                        this.phieumuon.maphieumuon,
+                        {dateTimeEnd: this.phieugiahan.thoigiangiahan}
+                    );
+                }
+                // console.log(this.phieumuon._id);
+                this.getInforById();
+            }
+            catch(error){
+                console.log(error);
+            }
         }
+
     },
     created() {
         this.getInforById()

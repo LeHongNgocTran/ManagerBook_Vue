@@ -9,8 +9,8 @@
 
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><button class="dropdown-item fs-4" type="button">Chưa duyệt</button></li>
-                    <li><button class="dropdown-item fs-4" type="button">Đã duyệt</button></li>
+                    <li><button class="dropdown-item fs-4" type="button" @click = "filterDanhsach(false)">Chưa duyệt</button></li>
+                    <li><button class="dropdown-item fs-4" type="button" @click = "filterDanhsach(true)">Đã duyệt</button></li>
                 </ul>
             </div>
             <button class='btn btn-success fs-4'>
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(giahan, index) in this.phieugiahan"
+                    <tr v-for="(giahan, index) in this.danhsachduyet"
                         :key="giahan._id"
                         class="text-center align-middle">
                         <td>{{index + 1}}</td>
@@ -70,13 +70,15 @@ import PhieuGiaHanService from "@/services/phieugiahan.service";
 export default {
     data() {
         return {
-            phieugiahan: null
+            phieugiahan: null,
+            danhsachduyet: []
         }
     },
     methods: {
         async getAllPhieuGiaHan() {
             try {
                 this.phieugiahan = await PhieuGiaHanService.getAllPhieuGiaHan();
+                this.danhsachduyet = this.phieugiahan;
             }
             catch (error) {
                 console.log(error);
@@ -87,6 +89,9 @@ export default {
                 name :  "duyetphieugiahan",
                 params: { id: id }
             })
+        },
+        filterDanhsach(filter){
+            this.danhsachduyet = this.phieugiahan.filter(e => e.trangthai == filter);
         }
     },
     created(){

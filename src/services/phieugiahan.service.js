@@ -16,6 +16,12 @@ class PhieuGiaHanService {
   async getDetails(data){
     return (await this.api.post("/details",data)).data;
   }
+  async getInforGiaHanUser(data){
+    return (await this.api.post("/PGH",data)).data;
+  }
+  async duyetphieu(id,data){
+    return (await this.api.put(`/${id}`,data)).data;
+  }
 }
 
 export default new PhieuGiaHanService();

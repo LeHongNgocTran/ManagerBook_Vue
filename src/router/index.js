@@ -7,6 +7,8 @@ import Contact from "@/pages/Contact/contact.vue";
 import InforUser from "@/pages/InforUser/inforuser.vue";
 import adminRoutes from "@/router/adminroutes.js";
 
+import {useAccountStore} from "@/store/useStore"
+
 const routes = [
   ...adminRoutes,
   {
@@ -61,7 +63,7 @@ const routes = [
         component: () => import("@/pages/InforUser/usergiahan.vue")
       },
       {
-        path: "dtailsPhieuMuon/:id",
+        path: "detailsPhieuMuon/:id",
         name : "detailsphieumuon",
         component: () => import("@/pages/InforUser/detailsphieumuon.vue"),
         params : true
@@ -81,4 +83,15 @@ const router = createRouter({
   },
 });
 
+router.beforeEach((to,from,next) => {
+  const AccountStore = useAccountStore();
+  if(!AccountStore.user && to.name != 'login'){
+    next({
+      path: '/login',
+      replace: true
+    })
+  }
+  next();
+}
+)
 export default router;

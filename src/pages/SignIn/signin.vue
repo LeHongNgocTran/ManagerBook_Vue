@@ -59,6 +59,11 @@ export default {
                             name: 'admin'
                         });
                     }
+                    if (this.account.phanquyen == 3) {
+                        this.$router.push({
+                            name: 'admin'
+                        });
+                    }
                 }
             } catch (error) {
                 console.log(error);

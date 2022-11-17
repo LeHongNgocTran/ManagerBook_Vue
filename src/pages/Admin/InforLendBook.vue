@@ -80,21 +80,18 @@
 
 <script>
 import PhieuMuonService from "@/services/phieumuon.service";
+import BookService from "@/services/book.service"
 import { useBookStore } from "@/store/useStore";
 export default {
 
     data() {
         // Ngày bắt đầu mượn
         var dateTimeStart = new Date();
-        // var dateStart = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-        // var startime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        // var dateTimeStart = startime + ' ' + dateStart;
-        
+
         // Ngày hết hạn
         var dateTimeEnd = new Date();
         dateTimeEnd.setDate(dateTimeEnd.getDate() + 3)
-        // var dateEnd = endday.getDate() + '-' + (endday.getMonth() + 1) + '-' + endday.getFullYear();
-        // var dateTimeEnd = startime + ' ' + dateEnd;
+
 
         return {
             book: "",
@@ -105,7 +102,8 @@ export default {
             length: useBookStore().book,
             trangthai: false,
             dateTimeStart,
-            dateTimeEnd
+            dateTimeEnd,
+            danhsachsach : []
         }
     },
     methods: {
@@ -131,6 +129,8 @@ export default {
                 dateTimeEnd: this.dateTimeEnd,
             };
             this.phieumuon = await PhieuMuonService.createPhieuMuon(data);
+            console.log(this.books);
+            this.danhsachsach = await BookService.changeTrangThai(this.books);
             if (confirm("Thêm phiếu mượn thành công!!!")) {
                 this.$router.push({ name: 'listrentbook' });
             }

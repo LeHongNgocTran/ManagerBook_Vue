@@ -26,10 +26,10 @@
                 <p>
                     <strong>Trạng thái:</strong>
                     <button v-if="book.trangthai == false" class='btn btn-danger btn-small fs-5 rounded-pill px-3 ms-3'>
-                        Đã mượn
+                        Chưa mượn
                     </button>
                     <button v-else class='btn btn-success btn-small fs-5 rounded-pill px-3 ms-3'>
-                        Còn sách
+                        Đã mượn
                     </button>
                 </p>
             </div>

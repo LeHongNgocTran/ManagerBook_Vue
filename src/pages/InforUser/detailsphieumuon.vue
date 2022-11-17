@@ -57,11 +57,13 @@
 <script>
 import PhieuMuonService from "@/services/phieumuon.service.js";
 import PhieuGiaHanService from "@/services/phieugiahan.service.js";
+import {useAccountStore} from "@/store/useStore";
 export default {
     data() {
         return {
             details: {},
             giahan: {},
+            user: useAccountStore().user,
             trangthaiduyet: false
         }
     },
@@ -93,13 +95,14 @@ export default {
         ,
         async dangkyGiaHan() {
             try {
-                var day = new Date(this.details.endday);
+                var day = new Date(this.details.dateTimeEnd);
                 day.setDate(day.getDate() + 3);
 
                 const data = {
                     maphieumuon: this.details._id,
                     trangthai: this.trangthaiduyet,
-                    thoigiangiahan: day
+                    thoigiangiahan: day,
+                    masinhvien : this.user.masinhvien
                 }
                 // console.log(data);
                 this.giahan = await PhieuGiaHanService.createPhieuGiaHan(data);
