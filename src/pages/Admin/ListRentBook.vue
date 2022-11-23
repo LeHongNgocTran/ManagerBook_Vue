@@ -9,12 +9,12 @@
 
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><button class="dropdown-item fs-4" 
-                        type="button"
-                        @click = "filterChualoc(false)">Chưa trả</button></li>
-                    <li><button class="dropdown-item fs-4" type="button"
-                        @click = "filterChualoc(true)"
-                        >Đã trả</button></li>
+                    <li><button class="dropdown-item fs-4" type="button" @click="filterChualoc(false)">Chưa trả</button>
+                    </li>
+                    <li><button class="dropdown-item fs-4" type="button" @click="filterChualoc(true)">Đã trả</button>
+                    </li>
+                    <li><button class="dropdown-item fs-4" type="button" @click="filterChualoc('Quá hạn')">Quá hạn</button>
+                    </li>
                 </ul>
             </div>
             <button class='btn btn-primary fs-4' type="button" @click="changeToInforLend">
@@ -51,6 +51,8 @@
                             <button class='btn btn-danger w-50' v-if="phieumuon.trangthai == false">Chưa trả</button>
                             <button class='btn btn-success w-50' v-if="phieumuon.trangthai == true">Đã trả</button>
                             <button class='btn btn-dark w-50' v-if="phieumuon.trangthai == 'Đã xóa'">Đã xóa</button>
+                            <button class='btn btn-dark w-50' v-if="phieumuon.trangthai == 'Quá hạn'">Quá hạn</button>
+                            
                         </td>
                         <td>
                             <font-awesome-icon @click="changetoeditphieumuon(phieumuon._id)" class='button-function'
@@ -96,12 +98,20 @@
                             <tr>
                                 <td class='py-2'> <strong>Trạng thái: </strong> </td>
                                 <td class='py-2'>
-                                    <span class='text-success fw-bold' v-if='this.selected.trangthai == true'>Đã
+                                    <span class='text-success fw-bold' v-if='this.selected.trangthai == true' > Đã
                                         trả</span>
-                                    <span class='text-danger fw-bold' v-if='this.selected.trangthai == false'> Chưa
+                                    <span class='text-danger fw-bold' v-if='this.selected.trangthai == false' > Chưa
                                         trả</span>
                                     <span class='text-black fw-bold' v-if="this.selected.trangthai == 'Đã xóa'"> Đã
                                         xóa</span>
+                                    <span class='text-black fw-bold' v-if="this.selected.trangthai == 'Quá hạn'"> Quá
+                                        hạn</span>
+                                </td>
+                            </tr>
+                            <tr v-if='this.selected.thoigiantrasach != ""' >
+                                <td><strong>Thơì gian trả sách:</strong></td>
+                                <td>
+                                    <span>{{setDate(this.selected.thoigiantrasach)}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -148,7 +158,7 @@ export default {
             dateTimeStart: '',
             dateTimeEnd: '',
             danhsachduyet: [],
-            
+
         };
     },
     methods: {
@@ -197,7 +207,7 @@ export default {
 
         filterChualoc(filter) {
             this.danhsachduyet = this.phieumuon.filter(e => e.trangthai == filter);
-            console.log(this.danhsachduyet);
+            // console.log(this.danhsachduyet);
             // this.reFreshList();
         }
     },

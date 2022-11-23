@@ -45,7 +45,7 @@ export default {
                 if (this.account.error) {
                     this.error = true
                     this.account.error = "Sai tài khoản hoặc mật khẩu vui lòng nhập lại!"
-                    console.log(this.account.error);
+                    // console.log(this.account.error);
                 } else {
                     this.accountStore.user = this.account;
                     this.error = false

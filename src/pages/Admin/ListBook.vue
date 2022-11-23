@@ -38,7 +38,7 @@
                         <td>{{ book.tentacgia }}</td>
                         <td>{{ book.tenloai }}</td>
                         <td>
-                            <button class='btn btn-danger w-100' v-if="book.trangthai == false">Đã mượn</button>
+                            <button class='btn btn-danger w-100' v-if="book.trangthai == true">Đã mượn</button>
                             <button class='btn btn-success w-100 ' v-else>Chưa mượn</button>
                         </td>
                         <td>

@@ -19,12 +19,22 @@
                 <td class='py-2 fw-bold'>Thời hạn trả sách</td>
                 <td class='py-2'>{{ setDate(details.dateTimeEnd) }}</td>
             </tr>
+            <tr v-if='details.thoigiantrasach != ""'>
+                <td class='py-2 fw-bold'>Thời gian trả sách</td>
+                <td class='py-2'>{{ setDate(details.thoigiantrasach) }}</td>
+            </tr>
+            <tr v-if='details.thoigiantrasach != ""'>
+                <td class='py-2 fw-bold'>Số ngày quá hạn</td>
+                <td class='text-danger fw-bold py-2'>{{this.songaytre}}</td>
+            </tr>
             <tr>
                 <td class='py-2 fw-bold'>Trạng thái sách</td>
                 <td class='py-2 text-success fw-bold fs-3'
                     v-if="details.trangthai == true || details.trangthai == 'Đã xóa'">Đã trả</td>
-                <td class='py-2 text-danger fw-bold fs-3 ' v-else>Chưa trả</td>
+                <td class='py-2 text-danger fw-bold fs-3 ' v-if='details.trangthai == false'>Chưa trả</td>
+                <td class='py-2 text-danger fw-bold fs-3' v-if='details.trangthai == "Quá hạn"'>Quá hạn</td>
             </tr>
+            <tr></tr>
         </table>
         <p class='mt-4 mb-4 fs-3 fw-bold text-uppercase'>Thông tin sách</p>
         <table class='w-100 table border fs-3 text-center table-hover'>
@@ -64,14 +74,23 @@ export default {
             details: {},
             giahan: {},
             user: useAccountStore().user,
-            trangthaiduyet: false
+            trangthaiduyet: false,
+            songaytre: 0,
         }
     },
     methods: {
         async getPhieuMuonById() {
             try {
                 this.details = await PhieuMuonService.getIdPhieuMuon(this.$route.params.id);
-                console.log(this.details);
+                var date1 = new Date(this.details.thoigiantrasach);
+                var date2 = new Date(this.details.dateTimeEnd);
+                if(date1 > date2){
+                    var date = Math.abs(date1.getTime() - date2.getTime());
+                this.songaytre = Math.floor(date/(24*1000*3600));
+                }
+                else {
+                    this.songaytre = 0;
+                }
             }
             catch (error) {
                 console.log(error);

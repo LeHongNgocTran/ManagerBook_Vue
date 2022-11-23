@@ -5,8 +5,11 @@
         <option value="Tác giả">Tác giả</option>
         <option value="Nhà xuất bản">Nhà xuất bản</option>
     </select>
-    <input type="search" placeholder="Nhập sách bạn muốn tìm" :value="modelValue" @input="updateModelValue"
-        @keyup.enter="submit" />
+    <input type="text"
+         placeholder="Nhập sách bạn muốn tìm" 
+         :value="modelValue" 
+         @input="updateModelValue"
+         @keyup.enter="submit" />
     <div class='search__button'>
         <button type='button' @click="submit">
             <font-awesome-icon icon='fa-solid fa-search' />

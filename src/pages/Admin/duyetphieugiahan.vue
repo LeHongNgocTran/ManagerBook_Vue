@@ -22,19 +22,19 @@
             <div class='row mb-5'>
                 <div class=" col form-outline">
                     <label class="form-label" for="dataStart">Thời gian bắt đầu lập phiếu : </label>
-                    <input type="text" name="dataStart" v-model="this.phieumuon.thongtingiahan.dateTimeStart"
+                    <input type="text" name="dataStart" v-model="this.dateTimeStart"
                         class="form-control" readonly />
                 </div>
                 <div class=" col form-outline">
                     <label class="form-label" for="dateEnd">Thời gian hết hạn mượn sách: </label>
-                    <input type="text" v-model="this.phieumuon.thongtingiahan.dateTimeEnd" name="dateEnd"
+                    <input type="text" v-model="this.dateTimeEnd" name="dateEnd"
                         class="form-control" readonly />
                 </div>
                 <div class=" col form-outline">
                     <label class="form-label" for="dateEnd">Thời gian gia hạn: </label>
                     <input 
                         type="text" 
-                        v-model = "this.dateTimeGiaHan"
+                        v-model = "this.dataTimeGiaHan"
                         name="dateEnd"  
                         class="form-control" readonly />
                 </div>
@@ -85,7 +85,7 @@
                 <div class='col d-flex justify-content-end'>
                     <button 
                         @click = "this.duyetphieu"
-                        class='btn btn-primary py-2 fs-4'>Duyệt trả sách</button>
+                        class='btn btn-primary py-2 fs-4'>Duyệt gia hạn sách</button>
                 </div>
             </div>
         </div>
@@ -100,7 +100,9 @@ export default {
         return {
             phieugiahan: null,
             phieumuon: null,
-            dataTimeGiaHan : ''
+            dataTimeGiaHan : '',
+            dateStart:'',
+            datetTimeEnd:''
         }
     },
     methods: {
@@ -108,32 +110,37 @@ export default {
             try {
                 this.phieugiahan = await GiaHanService.getInforById(this.$route.params.id);
                 this.phieumuon = (await GiaHanService.getDetails({ maphieumuon: this.phieugiahan.maphieumuon }))[0];
-                // Chỉnh hiển thị thời gian
-                var date = new Date(this.phieumuon.thoigiangiahan);
-                var dateStart = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
-                var startime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                this.dateTimeGiaHan = startime + ' ' + dateStart;
-                
+                this.dateTimeStart = this.setDate(this.phieumuon.thongtingiahan.dateTimeStart);
+                this.dateTimeEnd = this.setDate(this.phieumuon.thongtingiahan.dateTimeEnd);
+                this.dataTimeGiaHan = this.setDate(this.phieumuon.thoigiangiahan);
+                if(new Date(this.phieumuon.thongtingiahan.dateTimeStart) > new Date(this.phieumuon.thongtingiahan.dateTimeEnd)){
+                    console.log(false);
+                }else {
+                    console.log(true);
+                }
             }
             catch (error) {
                 console.log(error)
             }
         },
+        setDate(date) {
+            var dateTime = new Date(date);
+            var date = dateTime.getDate() + '-' + (dateTime.getMonth() + 1) + '-' + dateTime.getFullYear();
+            var time = dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
+            return time + ' ' + date;
+        },
         async duyetphieu(){
             try{
-                // console.log(this.phieumuon);
                 if(confirm("Xác nhận duyệt đăng ký gia hạn!")){
                     this.phieugiahan = await GiaHanService.duyetphieu(
                         this.phieumuon._id,
                         {trangthai: true}
                     );
-                    // console.log(this.phieumuon)
                     this.phieumuon = await PhieuMuonService.duyetphieu(
                         this.phieumuon.maphieumuon,
                         {dateTimeEnd: this.phieugiahan.thoigiangiahan}
                     );
                 }
-                // console.log(this.phieumuon._id);
                 this.getInforById();
             }
             catch(error){

@@ -39,28 +39,36 @@ export default {
         return {
             //Tạo biến cục bộ
             bookLocal: this.book,
-            bookFormSchema
+            bookFormSchema,
+            selectedFile: ''
         };
     },
     methods: {
         submitBook() {
+            var formData = new FormData();
+            formData.append('file',this.selectedFile);
             this.$emit("submit:book", this.bookLocal);
-        }
+        },
+        onFileSelected(event) {
+            this.selectedFile = event.target.files[0];
+            // console.log(this.selectedFile);
+        },
     }
 }
 </script>
 
 
 <template>
-    <Form @submit="submitBook" :validation-schema="bookFormSchema">
+    <Form @submit="submitBook" 
+    enctype="multipart/form-data"
+    :validation-schema="bookFormSchema">
         <div class='container-fluid mb-5 p-5 shadow border bg-white rounded-2'>
             <div class="row">
                 <div class="col mb-5">
                     <!-- Name input -->
                     <div class="form-outline">
                         <label class="form-label" for="tensach">Tên sách</label>
-                        <Field  name="tensach" type="text" class="form-control" 
-                                v-model="this.bookLocal.tensach" />
+                        <Field name="tensach" type="text" class="form-control" v-model="this.bookLocal.tensach" />
                         <ErrorMessage name="tensach" class="error-feedback" />
                     </div>
                 </div>
@@ -120,11 +128,16 @@ export default {
                     <label class='form-label' for="hinhanhsach">
                         Hình ảnh
                     </label>
-                    <Field  type="text" 
-                            name="hinhanhsach" 
-                            class="form-control"
-                            v-model="this.bookLocal.imageUrl"></Field>
-
+                    <input 
+                        multiple
+                        
+                        type="file" 
+                        name="hinhanhsach" 
+                        class="form-control" 
+                        @change="this.onFileSelected"
+                       
+                       >
+                
                 </div>
             </div>
             <div class='row mt-5'>

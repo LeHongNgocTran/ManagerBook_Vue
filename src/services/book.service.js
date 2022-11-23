@@ -25,7 +25,7 @@ class BookService {
         return (await this.api.delete(`/${id}`)).data;
     }
     async changeTrangThai(data){
-        return (await this.api.post("/QPSPM",data)).data;
+        return (await this.api.post("/QLSPM",data)).data;
     }
    
 }

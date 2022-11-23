@@ -8,7 +8,6 @@ import EditBook from "../pages/Admin/EditBook.vue";
 
 import ListRentBook from "../pages/Admin/ListRentBook.vue";
 import ListRenewalBook from "../pages/Admin/BookRenewal.vue";
-import ListMissBook from "../pages/Admin/ListMissBook.vue";
 import InforLendBook from "../pages/Admin/InforLendBook.vue";
 import FormLendBook from "../layouts/LayoutAdmin/FormLendBook.vue";
 import DuyetPhieuGiaHan from "../pages/Admin/duyetphieugiahan.vue";
@@ -56,12 +55,6 @@ export default [
                 path: 'renewalbook',
                 name: 'listrenewalbook',
                 component: ListRenewalBook
-            },
-            {
-                // Trang danh sách sinh viên trễ  hạn
-                path: 'listmissbook',
-                name: 'listmissbook',
-                component: ListMissBook
             },
             {
                 // Trang thêm thông tin vào sinh viên mượn sách

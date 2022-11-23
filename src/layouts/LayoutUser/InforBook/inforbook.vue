@@ -4,9 +4,12 @@
             <p class='p-3 fs-4'>TỔNG QUAN</p>
         </div>
         <!-- chưa hiển thị details -->
-        <div @click="updateActiveIndex(index)" id='infor__books' 
-            class='inforbook border p-3 my-4' 
-            v-for="book of this.displayBooks" :key="books._id">
+        <div id='infor__books' 
+            @click="updateActiveIndex(index)" 
+            class='inforbook border p-3 my-4'
+            :class="{active:index === activeIndex}"
+            v-for="book of this.displayBooks" 
+            :key="books._id">
             <div class='inforbook-content' v-if="book.isActive == null">
                 <p class='text-primary'>
                     <strong class='text-dark'>Tên sách: </strong>
@@ -20,16 +23,18 @@
                     <strong>Nhà xuất bản:</strong> {{ book.tenNXB }}
                 </p>
                 <p class='text-primary'>
-                    <strong class='text-dark'>Số thứ thự trên kệ sách:</strong> {{ book.stt }}/{{ book.soke }}/{{ book.tenday }} -
+                    <strong class='text-dark'>Số thứ thự trên kệ sách:</strong> {{ book.stt }}/{{ book.soke }}/{{
+                            book.tenday
+                    }} -
                     STT/SOKE/TENDAY
                 </p>
                 <p>
                     <strong>Trạng thái:</strong>
-                    <button v-if="book.trangthai == false" class='btn btn-danger btn-small fs-5 rounded-pill px-3 ms-3'>
-                        Chưa mượn
+                    <button v-if="book.trangthai == true" class='btn btn-danger btn-small fs-5 rounded-pill px-3 ms-3'>
+                        Đã mượn
                     </button>
                     <button v-else class='btn btn-success btn-small fs-5 rounded-pill px-3 ms-3'>
-                        Đã mượn
+                        Chưa mượn
                     </button>
                 </p>
             </div>
@@ -107,54 +112,39 @@
         </div>
 
         <div class="d-flex justify-content-center">
-            <b-pagination 
-                v-model="currentPage" 
-                :total-rows="rows" 
-                :per-page="perPage"
-                size="lg"
-                @click = 'pagination(currentPage)'
-            ></b-pagination>
+            <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" size="lg"
+                @click='pagination(currentPage)'></b-pagination>
         </div>
     </div>
 </template>
 
 <script>
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
-import {faArrowRight,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 library.add(faArrowRight, faArrowLeft);
 
 
 import BookService from "@/services/book.service";
 export default {
     props: {
-      books : {type: Array, default : []},
-      activeIndex: {type: Number, default : -1}  
+        books: { type: Array, default: [] },
+        activeIndex: { type: Number, default: -1 }
     },
     emits: ["update: activeIndex"],
     data() {
         return {
-            perPage : 3,
+            perPage: 3,
             currentPage: 3,
             rows: this.books.length,
             isActive: true,
             // books: [],
-            displayBooks:this.books.slice(0,3),
+            displayBooks: this.books.slice(0, 3),
         }
     },
     methods: {
-        // async getAllBook() {
-        //     try {
-        //         this.books = await BookService.getAll();
-        //         this.displayBooks = this.books.slice(0,3);
-        //         this.rows = this.books.length   ;
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // },
-
-        updateActiveIndex(index){
-            this.$emit("update: activeIndex",index)
+        updateActiveIndex(index) {
+            this.$emit("update: activeIndex", index)
         },
         toggleDetailsBook() {
             if (this.isActive == true) {
@@ -164,15 +154,11 @@ export default {
             }
         },
 
-        pagination(currentPage){
-            // alert(currentPage);
+        pagination(currentPage) {
             const start = (currentPage - 1) * this.perPage;
-            this.displayBooks = this.books.slice(start, start+3);
+            this.displayBooks = this.books.slice(start, start + 3);
         }
     },
-    // mounted() {
-    //     this.getAllBook();
-    // }
 }
 </script>
 
@@ -200,7 +186,7 @@ export default {
 }
 
 .button-content {
-    margin-top:10px;
+    margin-top: 10px;
     padding: 5px 10px;
     border-radius: 5px;
 }

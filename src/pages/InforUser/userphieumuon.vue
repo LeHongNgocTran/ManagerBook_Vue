@@ -16,7 +16,8 @@
                     <td>{{phieumuons._id}}</td>
                     <td>
                         <button class='btn btn-success w-50 fs-5' v-if="phieumuons.trangthai == true || phieumuons.trangthai == 'Đã xóa' ">Đã trả</button>
-                        <button class='btn btn-danger w-50 fs-5' v-else>Chưa trả</button>
+                        <button class='btn btn-dark w-50 fs-5' v-if="phieumuons.trangthai == 'Quá hạn'">Quá hạn</button>
+                        <button class='btn btn-danger w-50 fs-5' v-if='phieumuons.trangthai == false'>Chưa trả</button>
                     </td>
                     <td>
                         <b-button class='bg-transparent border-0' @click="changeToDetails(phieumuons._id)">

@@ -112,11 +112,11 @@ export default {
                     <InputSearch v-model="searchText" />
                 </div>
                 <InforBook 
-                    v-if="filteredBookCount > 0"
+                    v-if="filteredBookCount > 0 && searchText != null"
                     :books = "filteredBooks"
                     v-model:activeIndex="activeIndex"
                 ></InforBook>
-                <p class="mt-4 bg-danger bg-opacity-10 text-danger py-4 ps-3" v-else>Không tìm thấy sách phù hợp với yêu cầu của bạn.</p>
+                <p v-if="filteredBookCount == 0" class="mt-4 bg-danger bg-opacity-10 text-danger py-4 ps-3" >Không tìm thấy sách phù hợp với yêu cầu của bạn.</p>
             </div>
         </div>
     </div>

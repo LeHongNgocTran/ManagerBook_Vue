@@ -42,15 +42,15 @@
                         </router-link>
                     </li>
                     <li class='list--group__content'>
-                        <router-link :to="{ name: 'listmissbook' }">
+                        <router-link :to="{ name: 'listrenewalbook' }">
                             <h4>
-                                <font-awesome-icon icon="fa-solid fa-house" />
-                                &nbsp;&nbsp; Quản lý trả sách trễ hạn
+                                <font-awesome-icon icon="fa-solid fa-filter" />
+                                &nbsp;&nbsp; Thống kê
                             </h4>
                         </router-link>
                     </li>
                     <li class='list--group__content' v-if='this.account.user.phanquyen == 3'>
-                        <router-link :to="{ name: 'listmissbook' }">
+                        <router-link :to="{ name: '/' }">
                             <h4>
                                 <font-awesome-icon icon="fa-solid fa-user" />
                                 &nbsp;&nbsp; Quản lý tài khoản
