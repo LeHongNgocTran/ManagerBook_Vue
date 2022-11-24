@@ -147,13 +147,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 library.add(faFilter);
 import PhieuMuonService from "@/services/phieumuon.service";
-import { useBookStore } from "@/store/useStore";
+import { usePhieuMuonStore } from "@/store/useStore";
 export default {
     data() {
-        const bookStore = useBookStore();
         return {
             phieumuon: [],
-            bookStore,
+            phieumuonlength: usePhieuMuonStore(),
             selected: null,
             dateTimeStart: '',
             dateTimeEnd: '',
@@ -172,7 +171,7 @@ export default {
             try {
                 this.phieumuon = await PhieuMuonService.getAllPhieuMuon();
                 this.danhsachduyet = this.phieumuon;
-                this.bookStore.book = this.phieumuon.length;
+                this.phieumuonlength.length = this.phieumuon.length;
             }
             catch (error) {
                 console.log(error);

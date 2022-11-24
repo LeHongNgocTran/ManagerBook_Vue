@@ -6,5 +6,20 @@ export const useAccountStore = defineStore('account',{
 })
 
 export const useBookStore = defineStore('book',{
-    state: () => ({book:null})
+    state: () => ({
+        book: null,
+        length: 0
+    })
 })
+
+export const usePhieuMuonStore = defineStore('phieumuon',{
+    state: () => ({
+        phieumuon:null,
+        length:0
+    })
+})
+export const usePhieuGiaHanStore = defineStore('phieugiahan',{
+    state: () => ({
+        phieugiahan: null,
+        length: 0})
+});

@@ -18,7 +18,7 @@
         </div>
         <div class='row mb-5'>
             <div class=" col form-outline">
-                <label class="form-label" for="dataStart">Thời gian lập </label>
+                <label class="form-label" for="dataStart">Thời gian lập Phiếu </label>
                 <input type="text" name="dataStart" v-model="this.dateTimeStart" class="form-control" readonly />
             </div>
             <div class=" col form-outline">

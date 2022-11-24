@@ -32,17 +32,19 @@
                         class="text-center align-middle">
                         <td>{{ index + 1 }}</td>
                         <td style="width: 200px" >
-                            <img class=" w-50" :src="book.imageUrl" alt="Book1" />
+                            <img class=" w-50" :src="'../src/assets/images/Book/'+ book.imageUrl" alt={{book.tensach}} />
                         </td>
-                        <td class='w-25'>{{ book.tensach }}</td>
-                        <td>{{ book.tentacgia }}</td>
+                        <td style="width: 300px">{{ book.tensach }}</td>
+                        <td style="width: 250px">{{ book.tentacgia }}</td>
                         <td>{{ book.tenloai }}</td>
                         <td>
                             <button class='btn btn-danger w-100' v-if="book.trangthai == true">Đã mượn</button>
                             <button class='btn btn-success w-100 ' v-else>Chưa mượn</button>
                         </td>
                         <td>
-                            <font-awesome-icon class='button-function' icon="fa-solid fa-pen-to-square"
+                            <font-awesome-icon 
+                                class='button-function' 
+                                icon="fa-solid fa-pen-to-square"
                                 @click="changetoeditbook(book._id, book)" />
                             <font-awesome-icon class='button-function' icon="fa-solid fa-trash"
                                 @click="deletebook(book._id)" />
@@ -64,11 +66,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faTrash, faPenToSquare, faPlus, faFileExcel, faFilePdf, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 library.add(faTrash, faPenToSquare, faPlus, faFileExcel, faCircleInfo, faFilePdf)
 import BookService from "@/services/book.service";
+import { useBookStore } from '../../store/useStore';
 export default {
     data() {
         return {
             books: [],
-            activeIndex: 0
+            activeIndex: 0,
+            bookStore: useBookStore()
         }
     },
     
@@ -77,6 +81,7 @@ export default {
         async getAllBook() {
             try {
                 this.books = await BookService.getAll();
+                this.bookStore.length = this.books.length;
               
             } catch (error) {
                 console.log(error);
@@ -139,4 +144,5 @@ export default {
     font-size: 2rem;
     cursor: pointer;
 }
+
 </style>

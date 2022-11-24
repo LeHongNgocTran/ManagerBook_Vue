@@ -67,11 +67,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faTrash, faPenToSquare, faPlus, faFileExcel, faFilePdf, faCircleInfo, faFilter } from "@fortawesome/free-solid-svg-icons";
 library.add(faTrash, faPenToSquare, faPlus, faFileExcel, faFilePdf, faCircleInfo, faFilter);
 import PhieuGiaHanService from "@/services/phieugiahan.service";
+import { usePhieuGiaHanStore } from '../../store/useStore';
 export default {
     data() {
         return {
             phieugiahan: null,
-            danhsachduyet: []
+            danhsachduyet: [],
+            giahanlength: usePhieuGiaHanStore()
         }
     },
     methods: {
@@ -79,6 +81,8 @@ export default {
             try {
                 this.phieugiahan = await PhieuGiaHanService.getAllPhieuGiaHan();
                 this.danhsachduyet = this.phieugiahan;
+                this.giahanlength.length = this.phieugiahan.length;
+            
             }
             catch (error) {
                 console.log(error);

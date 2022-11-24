@@ -80,7 +80,7 @@
 import PhieuMuonService from "@/services/phieumuon.service";
 import BookService from "@/services/book.service"
 import {
-    useBookStore
+    usePhieuMuonStore
 } from "@/store/useStore";
 export default {
 
@@ -98,7 +98,7 @@ export default {
             nextBookId: 1,
             infor: [],
             phieumuon: [],
-            length: useBookStore().book,
+            length: usePhieuMuonStore().length,
             trangthai: false,
             dateTimeStart,
             dateTimeEnd,
@@ -121,7 +121,7 @@ export default {
 
         async addPhieuMuon() {
             const data = {
-                _id: 'PM' + useBookStore().book,
+                _id: 'PM' + usePhieuMuonStore().length,
                 ...this.infor,
                 danhsachsach: this.books,
                 trangthai: this.trangthai,

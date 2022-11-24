@@ -9,14 +9,7 @@
             </div>
             <div class='catolog--admin__container'>
                 <ul>
-                    <li class='list--group__content'>
-                        <router-link :to="{ name: 'dashboard' }">
-                            <h4>
-                                <font-awesome-icon icon="fa-solid fa-house" />
-                                &nbsp;&nbsp; Dashboard
-                            </h4>
-                        </router-link>
-                    </li>
+
                     <li class='list--group__content'>
                         <router-link :to="{ name: 'listbook' }">
                             <h4>
@@ -42,13 +35,14 @@
                         </router-link>
                     </li>
                     <li class='list--group__content'>
-                        <router-link :to="{ name: 'listrenewalbook' }">
+                        <router-link :to="{ name: 'dashboard' }">
                             <h4>
                                 <font-awesome-icon icon="fa-solid fa-filter" />
                                 &nbsp;&nbsp; Thống kê
                             </h4>
                         </router-link>
                     </li>
+
                     <li class='list--group__content' v-if='this.account.user.phanquyen == 3'>
                         <router-link :to="{ name: '/' }">
                             <h4>
@@ -57,8 +51,10 @@
                             </h4>
                         </router-link>
                     </li>
+
                 </ul>
             </div>
+          
         </div>
         <!-- Header của Admin -->
         <div class='second--admin__container '>
@@ -81,8 +77,7 @@
                     </div>
                     <div class='side--bar__account'>
                         <div class='button-group dropdown'>
-                            <button class=" dropdown-toggle" type="button"
-                             data-bs-toggle="dropdown"
+                            <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 {{ account.user.hoten }}&nbsp;&nbsp;
                             </button>
@@ -139,8 +134,9 @@ import {
     faUser,
     faSearch,
     faBell,
+    faGear
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faBell, faSearch, faBook, faHouse, faLanguage, faRightFromBracket, faGears, faUser);
+library.add(faBell, faSearch, faBook, faGear, faHouse, faLanguage, faRightFromBracket, faGears, faUser);
 import { useAccountStore } from '../../store/useStore';
 export default {
     setup() {
@@ -206,7 +202,15 @@ export default {
         }
     }
 }
-
+.setting{
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    background-color: rgb(24, 47, 104);
+    height: 100px;
+    width: 100%;
+    margin:auto
+}
 .second--admin__container {
     position: relative;
     left: 20%;
@@ -280,5 +284,6 @@ export default {
         z-index: 100;
         height: 100vh;
     }
+
 }
 </style>

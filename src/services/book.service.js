@@ -6,7 +6,11 @@ class BookService {
     }
     // Thêm sách vào cơ sở dữ liệu
     async create(data){
-        return (await this.api.post("/",data)).data;
+        return (await this.api.post("/",data,{
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        })).data;
     }
     // Lấy tất cả các sách
     async getAll(){

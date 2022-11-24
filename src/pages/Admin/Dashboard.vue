@@ -1,14 +1,14 @@
 <template>
 <div class='dashboard--dwrapper'>
-    <h2 class="ms-5 fs-1 py-5">DASHBOARD</h2>
+    <h2 class="ms-5 fs-1 py-5">THỐNG KÊ</h2>
     <div class='wrapper--container'>
         <div class='container-fluid'>
             <div class='row'>
                 <div class='col-sm-12 col-md-6 col-lg-3 number-book'>
                     <div class='d-flex flex-row  p-5 rounded border-start border-4 border-success shadow'>
                         <div class='body-card'>
-                            <h4 class='text-success'>Số lượng sách đã mượn</h4>
-                            <p>5000</p>
+                            <h4 class='text-success'>Số lượng phiếu mượn</h4>
+                            <p>{{this.phieumuonlength}}</p>
                         </div>
                         <font-awesome-icon icon="fa-solid fa-book" size="3x" color="gray" />
                     </div>
@@ -16,8 +16,8 @@
                 <div class=' col-sm-12 col-md-6 col-lg-3 number-book'>
                     <div class='d-flex flex-row  p-5 rounded border-start border-4 border-danger shadow'>
                         <div class='body-card'>
-                            <h4 class='text-danger'>Số lượng sách gia hạn</h4>
-                            <p>5000</p>
+                            <h4 class='text-danger'>Số lượng phiếu xin gia hạn</h4>
+                            <p>{{this.phieugiahanlength}}</p>
                         </div>
                         <font-awesome-icon size="3x" icon="fa-solid fa-calendar" color="gray" />
                     </div>
@@ -26,7 +26,7 @@
                     <div class='d-flex flex-row  p-5 rounded border-start border-4 border-primary shadow'>
                         <div class='body-card'>
                             <h4 class='text-primary'>Tổng sổ sách</h4>
-                            <p>5000</p>
+                            <p>{{this.booklength}}</p>
                         </div>
                         <font-awesome-icon size="3x" icon="fa-solid fa-book" color="gray" />
                     </div>
@@ -34,7 +34,7 @@
                 <div class=' col-sm-12 col-md-6 col-lg-3 number-book'>
                     <div class='d-flex flex-row  p-5 rounded border-start border-4 border-warning shadow'>
                         <div class='body-card'>
-                            <h4 class='text-warning'>Số lượng người truy cận</h4>
+                            <h4 class='text-warning'>Số lượng người truy cập</h4>
                             <p>5000</p>
                         </div>
                         <font-awesome-icon size="3x" icon="fa-solid fa-user" color="gray" />
@@ -61,8 +61,16 @@ import {
 library.add(faUser,
     faBook,
     faCalendar)
-
-    
+import { usePhieuMuonStore,usePhieuGiaHanStore,useBookStore} from '../../store/useStore';  
+export default {
+    data(){
+        return {
+            phieumuonlength : usePhieuMuonStore().length,
+            phieugiahanlength : usePhieuGiaHanStore().length,
+            booklength: useBookStore().length,
+        } 
+    }
+}
 </script>
 
 <style lang="scss">
