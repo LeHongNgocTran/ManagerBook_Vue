@@ -102,29 +102,17 @@ export default {
         },
         async updateBook() {
             if (confirm("Xác nhận cập nhât thông tin ?")) {
-                // console.log('abc');
                 try {
                     var formData = new FormData();
                     formData.append('file', this.selectedFile);
                     this.buildFormData(formData, this.book);
-                    console.log(formData);
                     await BookService.update(this._id,formData);
                     this.$router.push({ name: 'listbook' })
                 }
                 catch (error) {
-
+                    console.log(error);
                 }
             }
-            // console.log(this._id);
-            // // try {
-            // //     await BookService.update(this.book._id, data);
-            // //     if(confirm("Cập nhật thành công ! ")){
-            // //         this.$router.push({name: "listbook"});
-            // //     }
-            // // }
-            // // catch (error) {
-            // //     console.log(error);
-            // // }
         },
     },
     mounted() {
