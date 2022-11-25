@@ -123,7 +123,6 @@ export default {
 }
 </script>
 
-
 <template>
     <div :validation-schema="bookFormSchema">
         <div class='container-fluid mb-5 p-5 shadow border bg-white rounded-2'>

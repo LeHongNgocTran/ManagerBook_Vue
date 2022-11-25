@@ -65,7 +65,10 @@
                 </router-link>
             </div>
             <div class='col d-flex justify-content-end'>
-                <button class='btn btn-primary py-2 fs-4' @click="this.update">Duyệt trả sách</button>
+                <button 
+                    v-if="this.phieumuon.trangthai == false"
+                    class='btn btn-primary py-2 fs-4' 
+                    @click="this.update">Duyệt trả sách</button>
             </div>
         </div>
     </div>

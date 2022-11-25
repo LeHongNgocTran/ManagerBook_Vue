@@ -112,7 +112,6 @@ export default {
         async getInforPhieuGiaHan() {
             try {
                 this.phieugiahan = await PhieuGiaHanService.getInforGiaHanUser({masinhvien: this.user.masinhvien});      
-                // console.log(this.phieugiahan);
             }
             catch (error) {
                 console.log(error);

@@ -84,6 +84,7 @@
                 </div>
                 <div class='col d-flex justify-content-end'>
                     <button 
+                       v-if="this.phieumuon.trangthai == false"
                         @click = "this.duyetphieu"
                         class='btn btn-primary py-2 fs-4'>Duyệt gia hạn sách</button>
                 </div>
@@ -96,7 +97,6 @@ import GiaHanService from "@/services/phieugiahan.service";
 import PhieuMuonService from "@/services/phieumuon.service";
 export default {
     data() {
-
         return {
             phieugiahan: null,
             phieumuon: null,
@@ -109,7 +109,10 @@ export default {
         async getInforById() {
             try {
                 this.phieugiahan = await GiaHanService.getInforById(this.$route.params.id);
-                this.phieumuon = (await GiaHanService.getDetails({ maphieumuon: this.phieugiahan.maphieumuon }))[0];
+                this.phieumuon = (await GiaHanService.getDetails(
+                    {maphieumuon:this.phieugiahan.maphieumuon}
+                ))[0];
+            
                 this.dateTimeStart = this.setDate(this.phieumuon.thongtingiahan.dateTimeStart);
                 this.dateTimeEnd = this.setDate(this.phieumuon.thongtingiahan.dateTimeEnd);
                 this.dataTimeGiaHan = this.setDate(this.phieumuon.thoigiangiahan);

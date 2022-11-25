@@ -25,7 +25,7 @@
             </tr>
             <tr v-if='details.thoigiantrasach != ""'>
                 <td class='py-2 fw-bold'>Số ngày quá hạn</td>
-                <td class='text-danger fw-bold py-2'>{{this.songaytre}}</td>
+                <td class='text-danger fw-bold py-2'>{{ this.songaytre }}</td>
             </tr>
             <tr>
                 <td class='py-2 fw-bold'>Trạng thái sách</td>
@@ -67,7 +67,7 @@
 <script>
 import PhieuMuonService from "@/services/phieumuon.service.js";
 import PhieuGiaHanService from "@/services/phieugiahan.service.js";
-import {useAccountStore} from "@/store/useStore";
+import { useAccountStore } from "@/store/useStore";
 export default {
     data() {
         return {
@@ -76,6 +76,7 @@ export default {
             user: useAccountStore().user,
             trangthaiduyet: false,
             songaytre: 0,
+            counter: 0
         }
     },
     methods: {
@@ -84,9 +85,9 @@ export default {
                 this.details = await PhieuMuonService.getIdPhieuMuon(this.$route.params.id);
                 var date1 = new Date(this.details.thoigiantrasach);
                 var date2 = new Date(this.details.dateTimeEnd);
-                if(date1 > date2){
+                if (date1 > date2) {
                     var date = Math.abs(date1.getTime() - date2.getTime());
-                this.songaytre = Math.floor(date/(24*1000*3600));
+                    this.songaytre = Math.floor(date / (24 * 1000 * 3600));
                 }
                 else {
                     this.songaytre = 0;
@@ -110,22 +111,19 @@ export default {
             var date = dateTime.getDate() + '-' + (dateTime.getMonth() + 1) + '-' + dateTime.getFullYear();
             var time = dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
             return time + ' ' + date;
-        }
-        ,
+        },
         async dangkyGiaHan() {
             try {
                 var day = new Date(this.details.dateTimeEnd);
                 day.setDate(day.getDate() + 3);
-
                 const data = {
                     maphieumuon: this.details._id,
                     trangthai: this.trangthaiduyet,
                     thoigiangiahan: day,
-                    masinhvien : this.user.masinhvien
+                    masinhvien: this.user.masinhvien
                 }
-                // console.log(data);
-                this.giahan = await PhieuGiaHanService.createPhieuGiaHan(data);
-                if (confirm("Bạn đã đăng ký gia hạn. Đang chờ xét duyệt!. Vui lòng quay lại sau 3h chiều")) {
+                if (confirm("Bạn đã đăng ký gia hạn. Đang chờ xét duyệt!")) {
+                    this.giahan = await PhieuGiaHanService.createPhieuGiaHan(data);
                     this.$router.push({ name: "giahan" })
                 }
 
@@ -146,5 +144,4 @@ export default {
     height: 40px;
     margin-top: 22px;
 }
-
 </style>
