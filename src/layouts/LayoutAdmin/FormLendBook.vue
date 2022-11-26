@@ -1,7 +1,7 @@
 <template>
 <div class='add--wrapper'>
-    <h2 class="fs-1 py-5">DUYỆT TRẢ SÁCH</h2>
-    <div class='container-fluid mb-5 border p-5 rounded-2 bg-white'>
+    <h2 class="py-5">DUYỆT TRẢ SÁCH</h2>
+    <div class='container-fluid mb-5 border p-5 rounded-2 bg-white shadow-lg'>
         <div class='row mb-5'>
             <div class=" col form-outline">
                 <label class="form-label" for="mssv">Mã số sinh viên</label>

@@ -1,6 +1,6 @@
 <template>
     <div class='listbook--wrapper'>
-        <h2 class="fs-1 py-5">DANH SÁCH SINH VIÊN GIA HẠN SÁCH</h2>
+        <h2 class="py-5">DANH SÁCH SINH VIÊN GIA HẠN SÁCH</h2>
         <div class='function-container d-flex flex-row'>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown"
@@ -20,7 +20,7 @@
                 <font-awesome-icon icon="fa-solid fa-file-pdf" /> Xuất PDF
             </button>
         </div>
-        <div class="shadow mt-2 bg-white">
+        <div class="shadow-lg mt-2 bg-white">
             <table class='table table-hover'>
                 <thead>
                     <tr class="text-center text-uppercase">
@@ -109,6 +109,10 @@ export default {
     button {
         padding: 8px;
         font-size: 1.2rem;
+    }
+    h2{
+        font-weight: 600;
+        font-size: 3rem;
     }
 }
 

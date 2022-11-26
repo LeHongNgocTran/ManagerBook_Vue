@@ -9,11 +9,14 @@ import InputSearch from "./InputSearch.vue";
 import BookService from "@/services/book.service"
 library.add(faCirclePlus, faSearch)
 
+import VueBootstrapTypeahead from "vue-bootstrap-typeahead";
+
 export default {
     components: {
         InforBook,
         InputSearch,
-        books : []
+        books : [],
+        VueBootstrapTypeahead
     },
     data() {
         return {

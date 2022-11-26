@@ -5,7 +5,7 @@
 <div class='map--second__container'>
     <div class='first--map__container'>
         <h4 class='fw-bold'>Hướng dẫn tính năng liên hệ</h4>
-        <h4 class='fw-bold'>Thư viện Khoa Công Nghệ Thông Tin & Truyền Thông</h4>
+        <h4 class='fw-bold'>Thư viện Trường Công Nghệ Thông Tin & Truyền Thông - Đại học Cần Thơ</h4>
         <ul>
             <li>
                 <font-awesome-icon icon="fa-solid fa-location-dot" /> Khu 2 - Đường 3/2 - Q.Ninh Kiều - TP.Cần Thơ

@@ -1,5 +1,5 @@
 <script >
-import * as yup from "yup";
+
 import BookService from "@/services/book.service";
 import { useBookStore } from '../../store/useStore';
 import {
@@ -18,29 +18,8 @@ export default {
         _id: {},
     },
     data() {
-
-        // Kiểm tra tính hợp lệ của các trường
-        const bookFormSchema = yup.object().shape({
-            tensach: yup
-                .string()
-                .required('Loại sách phải có giá trị')
-                .min(2, "Tên phải có ít nhất 2 ký tự")
-                .max(100, "Tên có nhiều nhất 100 ký tự"),
-            tacgia: yup
-                .string()
-                .required('Tên tác giả phải có giá trị')
-                .min(2, "Tên tác giả phải có ít nhất 2 ký tự")
-                .max(50, "Tên tác giả  phải có nhiều nhất 50 ký tự"),
-            tennxb: yup
-                .string()
-                .required("Tên nhà xuất bản phải có giá trị")
-                .min(2, "Tên nhà xuất bản phải có ít nhất 2 ký tự")
-                .max(100, "Tên nhà xuất bản  phải có nhiều nhất 100 ký tự"),
-        });
         const stt = useBookStore().length;
         return {
-            //Tạo biến cục bộ
-            bookFormSchema,
             selectedFile: '',
             book: {
                 tenNXB: "",
@@ -90,23 +69,30 @@ export default {
             }
         },
 
-         addBook() {
-            if (confirm("Xác nhận thêm thông tin sách ? ")) {
-                // console.log(this.book);
+        addBook() {
+            if (this.book.tenNXB != '' || this.book.tenday != "" || this.book.tenloai != '' || this.book.tensach != "" || this.book.tentacgia != '') {
                 var formData = new FormData();
                 formData.append('file', this.selectedFile);
                 this.buildFormData(formData, this.book)
-                this.book =  BookService.create(formData);
-                this.$router.push({ name: 'listbook' });
+                // console.log(this.book);
+                if (confirm("Xác nhận thêm thông tin sách ? ")) {
+                    this.book = BookService.create(formData);
+                    this.$router.push({ name: 'listbook' });
+                }
+            }
+            else {
+                confirm("Lỗi không thể thêm sách được");
             }
         },
-        async updateBook() {
+
+        updateBook() {
+            console.log(1);
             if (confirm("Xác nhận cập nhât thông tin ?")) {
                 try {
                     var formData = new FormData();
                     formData.append('file', this.selectedFile);
                     this.buildFormData(formData, this.book);
-                    await BookService.update(this._id,formData);
+                    BookService.update(this._id, formData);
                     this.$router.push({ name: 'listbook' })
                 }
                 catch (error) {
@@ -115,6 +101,7 @@ export default {
             }
         },
     },
+
     mounted() {
         this.getBook()
     }
@@ -124,32 +111,41 @@ export default {
 </script>
 
 <template>
-    <div :validation-schema="bookFormSchema">
-        <div class='container-fluid mb-5 p-5 shadow border bg-white rounded-2'>
+    <div class='mt-5' >
+        <div class='container-fluid mb-5 p-5 shadow-lg border bg-white rounded-2'>
             <div class="row">
                 <div class="col mb-5">
                     <!-- Name input -->
                     <div class="form-outline">
                         <label class="form-label" for="tensach">Tên sách</label>
-                        <Field name="tensach" type="text" class="form-control" v-model="this.book.tensach" />
-                        <ErrorMessage name="tensach" class="error-feedback" />
+                        <input 
+                            required 
+                            placeholder="Nhập tên sách"
+                            name="tensach" type="text" class="form-control" v-model="this.book.tensach" />
+                        <!-- <ErrorMessage name="tensach" class="error-feedback" /> -->
                     </div>
                 </div>
                 <div class="col">
                     <!-- Loại sách -->
                     <label for="loaisach">Loại sách</label>
-                    <Field as='select' name="loaisach" class="form-control" v-model="this.book.tenloai">
+                    <select 
+                        as='select' 
+                        name="loaisach" 
+                        class="form-control " 
+                        autofocus
+                        required
+                        v-model="this.book.tenloai">
+                        <option   value="" class='text-muted' >---- Chọn loại sách ----</option>
                         <option value="Công nghệ thông tin">L01 - Công nghệ thông tin</option>
                         <option value="Ngoại ngữ">L02 - Ngoại ngữ</option>
                         <option value="Khoa Học Kỹ Thuật">L03 - Khoa Học Kỹ Thuật</option>
-                    </Field>
+                    </select>
                 </div>
                 <div class="col">
                     <!-- Email input -->
                     <div class="form-outline">
                         <label class="form-label" for="tacgia">Tác giả</label>
-                        <Field type="text" name="tacgia" class="form-control" v-model="this.book.tentacgia" />
-                        <ErrorMessage name="tacgia" class="error-feedback" />
+                        <input required placeholder="Nhập tên tác giả" type="text" name="tacgia" class="form-control" v-model="this.book.tentacgia" />
                     </div>
                 </div>
             </div>
@@ -159,30 +155,32 @@ export default {
                     <!-- Name input -->
                     <div class="form-outline">
                         <label class="form-label" for="tennxb">Tên nhà xuất bản</label>
-                        <Field type="text" name="tennxb" class="form-control" v-model="this.book.tenNXB" />
-                        <ErrorMessage name="tennxb" class="error-feedback" />
+                        <input required placeholder="Nhập tên nhà xuất bản" type="text" name="tennxb" class="form-control" v-model="this.book.tenNXB" />
+                        <!-- <ErrorMessage name="tennxb" class="error-feedback" /> -->
                     </div>
                 </div>
                 <div class="col">
                     <!-- Vị trí kệ -->
                     <div class="form-outline">
                         <label class="form-label" for="vitrike">Vị trí kệ</label>
-                        <Field as='select' name="vitrike" class="form-control" v-model="this.book.soke">
+                        <select as='select' autofocus required name="vitrike" class="form-control" v-model="this.book.soke">
+                            <option value="">---- Chọn vị trí kệ ---- </option>
                             <option value='Công nghệ thông tin'>K01 - Công nghệ thông tin</option>
                             <option value='Ngoại ngữ'>K02 - Ngoại ngữ</option>
                             <option value='Khoa Học Kỹ Thuật'>K03 - Khoa Học Kỹ Thuật</option>
-                        </Field>
+                        </select>
                     </div>
                 </div>
                 <div class="col">
                     <!-- Vị trí dãy -->
                     <div class="form-outline">
                         <label class="form-label" for="vitriday">Vị trí dãy</label>
-                        <Field as='select' name="vitriday" class="form-control" v-model="this.book.tenday">
+                        <select as='select' autofocus required name="vitriday" class="form-control" v-model="this.book.tenday">
+                            <option value="">---- Chọn vị trí dãy ----</option>
                             <option value="Công nghệ thông tin">D01 - Công nghệ thông tin</option>
                             <option value="Ngoại ngữ">D02 - Ngoại ngữ</option>
                             <option value="Khoa Học Kỹ Thuật">D03 - Khoa học kỹ thuật</option>
-                        </Field>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -191,8 +189,8 @@ export default {
                     <label class='form-label' for="hinhanhsach">
                         Hình ảnh
                     </label>
-                    <input multiple type="file" name="hinhanhsach" class="form-control" @change="this.onFileSelected">
-
+                    <input required class="form-control form-control-lg" multiple id="formFileLg" name="hinhanhsach"
+                        @change="this.onFileSelected" type="file">
                 </div>
             </div>
             <div class='row mt-5'>
@@ -206,7 +204,7 @@ export default {
                     <button v-if="_id == null" class='btn btn-primary fs-4 py-2 px-5' @click="this.addBook">
                         &nbsp;Lưu
                     </button>
-                    <button v-else @click="this.updateBook" class='btn btn-primary fs-4 py-2 px-5'>
+                    <button v-else @click="this.updateBook" class='btn btn-primary fs-4 pe-5 ps-4 py-2'>
                         &nbsp; Cập nhật
                     </button>
 
@@ -219,12 +217,21 @@ export default {
 <style lang="scss" scoped>
 label {
     margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-input,
+
+input[type="file"] {
+    font-size: 1.8rem;
+    border-radius: 2px;
+}
+
+input[type="text"],
 select {
     height: 60px;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
+    
 }
 
 a:hover {
@@ -232,11 +239,5 @@ a:hover {
     font-size: 1.6rem;
     ;
     text-decoration: underline !important;
-}
-
-.error-feedback {
-    color: red;
-    font-size: 1.2rem;
-    ;
 }
 </style>

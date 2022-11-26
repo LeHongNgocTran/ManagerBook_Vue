@@ -1,6 +1,6 @@
 <template>
 <div class='dashboard--dwrapper'>
-    <h2 class="ms-5 fs-1 py-5">THỐNG KÊ</h2>
+    <h2 class="ms-3 py-5">THỐNG KÊ</h2>
     <div class='wrapper--container'>
         <div class='container-fluid'>
             <div class='row'>
@@ -8,7 +8,7 @@
                     <div class='d-flex flex-row  p-5 rounded border-start border-4 border-success shadow'>
                         <div class='body-card'>
                             <h4 class='text-success'>Số lượng phiếu mượn</h4>
-                            <p>{{this.phieumuonlength}}</p>
+                            <p>{{this.phieumuon.length}}</p>
                         </div>
                         <font-awesome-icon icon="fa-solid fa-book" size="3x" color="gray" />
                     </div>
@@ -17,7 +17,7 @@
                     <div class='d-flex flex-row  p-5 rounded border-start border-4 border-danger shadow'>
                         <div class='body-card'>
                             <h4 class='text-danger'>Số lượng phiếu xin gia hạn</h4>
-                            <p>{{this.phieugiahanlength}}</p>
+                            <p>{{this.phieuchoduyet.length}}</p>
                         </div>
                         <font-awesome-icon size="3x" icon="fa-solid fa-calendar" color="gray" />
                     </div>
@@ -26,7 +26,7 @@
                     <div class='d-flex flex-row  p-5 rounded border-start border-4 border-primary shadow'>
                         <div class='body-card'>
                             <h4 class='text-primary'>Tổng sổ sách</h4>
-                            <p>{{this.booklength}}</p>
+                            <p>{{this.book.length}}</p>
                         </div>
                         <font-awesome-icon size="3x" icon="fa-solid fa-book" color="gray" />
                     </div>
@@ -47,33 +47,47 @@
 </template>
 
 <script>
-import {
-    library
-} from '@fortawesome/fontawesome-svg-core'
-import {
-    FontAwesomeIcon
-} from '@fortawesome/vue-fontawesome';
-import {
-    faUser,
-    faBook,
-    faCalendar
-} from "@fortawesome/free-solid-svg-icons";
-library.add(faUser,
-    faBook,
-    faCalendar)
-import { usePhieuMuonStore,usePhieuGiaHanStore,useBookStore} from '../../store/useStore';  
+
+import BookService from "@/services/book.service";
+import PhieuMuonService from "@/services/phieumuon.service";
+import PhieuGiaHanService from "@/services/phieugiahan.service";
+
 export default {
     data(){
         return {
-            phieumuonlength : usePhieuMuonStore().length,
-            phieugiahanlength : usePhieuGiaHanStore().length,
-            booklength: useBookStore().length,
-        } 
+            book: [],
+            phieugiahan: [],
+            phieumuon: [],
+            phieuchoduyet: []
+        };
+    },
+    methods: {
+        async getAll(){
+            this.book = await BookService.getAll();
+            this.phieumuon = await PhieuMuonService.getAllPhieuMuon();
+            this.phieugiahan = await PhieuGiaHanService.getAllPhieuGiaHan();
+            this.phieugiahan.forEach((e) => {
+                if(e.trangthai == false){
+                    this.phieuchoduyet.push(e);
+                }
+            })
+        }
+    },
+    mounted(){
+        this.getAll();
     }
 }
 </script>
 
 <style lang="scss">
+
+.dashboard--dwrapper{
+    height: 87vh;
+    h2{
+        font-weight: 600;
+        font-size: 3rem;
+    }
+}
 .wrapper--container {
     margin-top: 20px;
 }

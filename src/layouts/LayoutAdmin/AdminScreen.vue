@@ -3,9 +3,7 @@
         <!-- Thanh tùy chọn -->
         <div class='first--admin__container'>
             <div class='image--admin__content'>
-                <router-link to="/">
-                    <img src="../../assets/images/ctu.png" alt="CICT" />
-                </router-link>
+                <img src="../../assets/images/ctu.png" alt="CICT" />
             </div>
             <div class='catolog--admin__container'>
                 <ul>
@@ -29,7 +27,7 @@
                     <li class='list--group__content'>
                         <router-link :to="{ name: 'listrenewalbook' }">
                             <h4>
-                                <font-awesome-icon icon="fa-solid fa-house" />
+                                <font-awesome-icon icon="fa-solid fa-registered" />
                                 &nbsp;&nbsp; Quản lý đăng ký gia hạn
                             </h4>
                         </router-link>
@@ -54,7 +52,7 @@
 
                 </ul>
             </div>
-          
+
         </div>
         <!-- Header của Admin -->
         <div class='second--admin__container '>
@@ -202,15 +200,17 @@ export default {
         }
     }
 }
-.setting{
+
+.setting {
     position: absolute;
     bottom: 0;
     padding: 10px;
     background-color: rgb(24, 47, 104);
     height: 100px;
     width: 100%;
-    margin:auto
+    margin: auto
 }
+
 .second--admin__container {
     position: relative;
     left: 20%;
@@ -279,10 +279,9 @@ export default {
     .container-children {
         position: relative;
         top: 80px;
-        background-color: rgb(247, 247, 247);
         padding: 20px;
         z-index: 100;
-        height: 100vh;
+
     }
 
 }

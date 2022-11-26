@@ -104,9 +104,10 @@ import {
     faSearch,
     faTags,
     faFolderOpen,
-    faFile
+    faFile,
+    faRegistered
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faRocket, faSearch, faTags, faFolderOpen, faFile)
+library.add(faRegistered,faRocket, faSearch, faTags, faFolderOpen, faFile)
 
 </script>
 

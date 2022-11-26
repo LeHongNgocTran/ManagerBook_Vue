@@ -40,7 +40,7 @@
             </div>
             <div class="inforbook-content d-flex flex-row" v-else>
                 <div class='inforbook-image me-5'>
-                    <img class='w-100 h-100' :src="book.imageUrl" alt={{book.tensach}} />
+                    <img class='w-100 h-100' :src="'../src/assets/images/Book/'+book.imageUrl" alt={{book.tensach}} />
                 </div>
                 <div>
                     <table>
