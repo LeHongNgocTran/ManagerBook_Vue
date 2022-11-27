@@ -19,8 +19,8 @@
             </ul>
 
             <div class='search-bar'>
-                <input type='search' placeholder="Nhập sách cần tìm" />
-                <button type='button' class="btn btn-primary search-button">
+                <input type='search' placeholder="Nhập sách cần tìm" @keyup.enter = "this.$router.push({name : 'searchbook'})" />
+                <button type='button' class="btn btn-primary search-button" @click="this.$router.push({name : 'searchbook'})">
                     <font-awesome-icon icon="fa-solid fa-search" />
                     &nbsp; Tìm kiếm
                 </button>

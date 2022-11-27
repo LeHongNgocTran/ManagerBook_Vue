@@ -85,12 +85,12 @@
                                 <strong>Trạng thái sách:</strong>
                             </td>
                             <td>
-                                <button v-if="book.trangthai == false"
+                                <button v-if="book.trangthai == true"
                                     class='btn btn-danger btn-small fs-5 rounded-pill px-3 ms-3'>
                                     Đã mượn
                                 </button>
                                 <button v-else class='btn btn-success btn-small fs-5 rounded-pill px-3 ms-3'>
-                                    Còn sách
+                                    Chưa mượn
                                 </button>
                             </td>
                         </tr>

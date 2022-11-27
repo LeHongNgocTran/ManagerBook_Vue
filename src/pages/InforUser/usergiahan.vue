@@ -1,6 +1,6 @@
 <template>
     <p class='user--infor__title fs-2'>Thông tin gia hạn sách</p>
-    <div class='information-content' v-if = 'this.phieugiahan.length !== 0 '>
+    <div class='information-content' v-if = 'this.phieugiahan.length != 0 '>
         <table class='border shadow table table-hover text-center'>
             <thead>
                 <tr>
@@ -102,8 +102,8 @@ import { useAccountStore } from "@/store/useStore"
 export default {
     data() {
         return {
-            phieugiahan: null,
-            giahan: null,
+            phieugiahan: [],
+            giahan: [],
             user: useAccountStore().user,
             selected: null
         }
@@ -124,7 +124,7 @@ export default {
             return time + ' ' + date;
         }
     },
-    created() {
+    mounted() {
         this.getInforPhieuGiaHan();
     }
 }

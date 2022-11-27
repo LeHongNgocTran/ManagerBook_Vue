@@ -31,8 +31,14 @@
                 <td class='py-2 fw-bold'>Trạng thái sách</td>
                 <td class='py-2 text-success fw-bold fs-3'
                     v-if="details.trangthai == true || details.trangthai == 'Đã xóa'">Đã trả</td>
-                <td class='py-2 text-danger fw-bold fs-3 ' v-if='details.trangthai == false'>Chưa trả</td>
-                <td class='py-2 text-danger fw-bold fs-3' v-if='details.trangthai == "Quá hạn"'>Quá hạn</td>
+                <td class='py-2 text-danger fw-bold fs-3 ' v-if='details.trangthai == false'>
+                    Chưa trả
+                    <span class='text-dark' v-if="this.trangthai == true"> - Đã đăng ký gia hạn</span>
+                </td>
+                <td class='py-2 text-danger fw-bold fs-3' v-if='details.trangthai == "Quá hạn"'>
+                    Quá hạn 1
+                </td>
+              
             </tr>
             <tr></tr>
         </table>
@@ -56,7 +62,7 @@
                     &nbsp; Quay lại
                 </router-link>
             </p>
-            <button class='btn btn-primary fs-4 btn-giahan' v-if='details.trangthai == false'
+            <button class='btn btn-primary fs-4 btn-giahan' v-if='details.trangthai == false && this.trangthai == false '
                 @click="this.dangkyGiaHan">
                 Đăng ký gia hạn
             </button>
@@ -71,12 +77,14 @@ import { useAccountStore } from "@/store/useStore";
 export default {
     data() {
         return {
-            details: {},
+            details: null,
             giahan: {},
             user: useAccountStore().user,
             trangthaiduyet: false,
             songaytre: 0,
-            counter: 0
+            counter: 0,
+            giahan: null,
+            trangthai: false,
         }
     },
     methods: {
@@ -92,6 +100,14 @@ export default {
                 else {
                     this.songaytre = 0;
                 }
+                this.giahan = await PhieuGiaHanService.getAllPhieuGiaHan();
+                
+                this.giahan.forEach((e) => {
+                    if (e.maphieumuon == this.details._id){
+                        this.trangthai = true
+                    }
+                   
+                })
             }
             catch (error) {
                 console.log(error);

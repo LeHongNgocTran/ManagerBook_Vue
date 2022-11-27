@@ -147,7 +147,8 @@ export default {
                 dateTimeEnd: this.dateTimeEnd,
                 thoigiantrasach: this.thoigiantrasach,
             };
-            if (this.infor.masinhvien != undefined  && this.infor.hoten != undefined && this.books!=null){
+            console.log(this.books);
+            if (this.infor.masinhvien != undefined  && this.infor.hoten != undefined  && this.books.length != 0){
                 if (confirm("Thêm phiếu mượn thành công!!!")) {
                 try {
                     this.phieumuon = await PhieuMuonService.createPhieuMuon(data);

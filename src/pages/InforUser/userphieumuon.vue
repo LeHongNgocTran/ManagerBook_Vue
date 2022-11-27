@@ -1,6 +1,6 @@
 <template>
     <p class='user--infor__title fs-2'>Thông tin phiếu mượn</p>
-    <div class='information-content' v-if='this.phieumuon.length !== 0'>
+    <div class='information-content' v-if='this.phieumuon.length != 0'>
         <table class='table table-hover text-center border shadow'>
             <thead>
                 <tr>
@@ -44,7 +44,7 @@ export default {
     data() {
         const name = useAccountStore().user;
         return {
-            phieumuon: null,
+            phieumuon: [],
             name
         }
     },
